@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+
+    
+
+    <title>{% block title %}My Flask App{% endblock %}</title>
+</head>
+    <body class="bg-base-200" style="visibility: hidden;">
+    <script>0</script>  <!-- Firefox hack for FOUC -->
+    
+    <div class="flex min-h-screen h-full">
+        <button id="sidebar-toggle" class="btn btn-primary lg:hidden absolute top-1 left-1 ">☰</button>
+        {% include 'sidebar.html' %}
+        
+        <!-- Main Content -->
+        <div class="flex-1 p-10">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+    
+    <script>
+        const toggleButton = document.getElementById('sidebar-toggle');
+        const sidebar = document.querySelector('.sidebar');
+
+        toggleButton.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+            sidebar.classList.toggle('-translate-x-full');
+        });
+
+        // Helper function
+        let domReady = (cb) => {
+        document.readyState === 'interactive' || document.readyState === 'complete'
+            ? cb()
+            : document.addEventListener('DOMContentLoaded', cb);
+        };
+
+        domReady(() => {
+        // Display body when DOM is loaded
+        document.body.style.visibility = 'visible';
+        });
+    </script>
+    {% block scripts %}{% endblock %}
+    <!-- <noscript><style>body { visibility: visible; }</style></noscript> -->
+</body>
+</html>

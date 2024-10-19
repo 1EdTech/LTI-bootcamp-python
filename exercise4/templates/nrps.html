@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}{{page_title}}{% endblock %}
+
+{% block content %}
+<div class="bg-base-100 p-5 rounded-lg shadow-md mt-5">
+    <h1 class="text-2xl font-bold">Names and Roles Provisioning Service</h1>
+    <p class="py-2">The Names and Roles Provisioning Service allows you to retrieve context and link members information.</p>
+    <div class="flex gap-5 mt-5">
+        <button id="get-context-members" class="btn btn-primary">Get Context Members</button>
+        <button id="get-link-members" class="btn btn-secondary">Get Link Members</button>
+    </div>
+    <div id="members-table" class="bg-white p-5 rounded-lg shadow-md mt-5 hidden">
+        <h2 class="text-xl font-bold mb-5">Members</h2>
+        <table class="table-auto w-full">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2">Name</th>
+                    <th class="px-4 py-2">Role</th>
+                </tr>
+            </thead>
+            <tbody id="members-table-body">
+                <!-- Data will be dynamically inserted here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+ // Internal API call to handle button press for NRPS members
+ async function fetchMembers(type) {
+    try {
+        const response = await fetch(`/api/nrps/members?type=${type}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const members = await response.json();
+        displayMembers(members);
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+    }
+}
+
+function displayMembers(members) {
+    membersTableBody.innerHTML = '';
+    members.forEach(member => {
+        const row = document.createElement('tr');
+        const rolesHtml = member.roles.map(role => `<span class='bg-gray-200 text-gray-800 px-2 py-1 rounded-full mr-2'>${role}</span>`).join('');
+        row.innerHTML = `
+            <td class="border px-4 py-2">${member.user_id}</td>
+            <td class="border px-4 py-2">${member.name}</td>
+            <td class="border px-4 py-2">${member.status}</td>
+            <td class="border px-4 py-2">${rolesHtml}</td>
+        `;
+        membersTableBody.appendChild(row);
+    }); 
+    membersTable.classList.remove('hidden');
+}
+
+const getContextMembersButton = document.getElementById('get-context-members');
+const getLinkMembersButton = document.getElementById('get-link-members');
+const membersTable = document.getElementById('members-table');
+const membersTableBody = document.getElementById('members-table-body');
+
+
+getContextMembersButton.addEventListener('click', () => {
+    fetchMembers('context');
+});
+
+getLinkMembersButton.addEventListener('click', () => {
+    fetchMembers('link');
+});
+
+
+</script>
+
+
+{% endblock %}

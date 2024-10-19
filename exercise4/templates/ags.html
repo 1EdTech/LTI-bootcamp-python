@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}{{page_title}}{% endblock %}
+
+{% block content %}
+<div class="bg-base-100 p-5 rounded-lg shadow-md mt-5">
+    <h1 class="text-2xl font-bold">Assignments & Grades</h1>
+    <p class="py-2">Below is the Grade Book, showing individuals and their respective grades for each line item.</p>
+    <div class="overflow-x-auto mt-5">
+        <table class="table-auto w-full">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2 sticky top-0 bg-white">Name</th>
+                    {% for lineitem in lineitems %}
+                        <th class="px-4 py-2 sticky top-0 bg-white break-words">{{ lineitem.label }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for individual in individuals %}
+                    <tr>
+                        <td class="border px-4 py-2">{{ individual.name }}</td>
+                        <!-- {% for grade in individual.grades %}
+                            <td class="border px-4 py-2">{{ grade }}</td>
+                        {% endfor %} -->
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  
+
+
+</script>
+
+
+{% endblock %}

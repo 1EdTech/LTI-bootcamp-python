@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Home - My Flask App{% endblock %}
+
+{% block content %}
+<div class="bg-base-100 p-5 rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold">Welcome to Landing Page</h1>
+    <p class="mt-4 text-lg">
+        This is a landing page for the LTI 1.3 Bootcamp. Click the button below to see the information received at launch.
+    </p>
+    <p>{{launch_id}}</p>
+
+    <!-- <button class="btn btn-primary mt-5">Click Me!</button> -->
+</div>
+
+<div class="flex-1 py-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <!-- User Information Card -->
+                <div class="bg-base-100 p-5 rounded-lg shadow-md">
+                    <h2 class="text-xl font-bold">User Information</h2>
+                    <p class="mt-2"><strong>Name:</strong> {{ user_data.get('name', '') }}</p>
+                    <p class="mt-2"><strong>User ID:</strong> {{ user_data.get('sub', '') }}</p>
+                    <p class="mt-2"><strong>Email:</strong> {{ user_data.get('email', '') }}</p>
+                    <p class="mt-2"><strong>Source ID:</strong> {{ user_data.get('sourced_id', '') }}</p>
+                    </div>
+
+                <!-- Roles Information Card -->
+                <div class="bg-base-100 p-5 rounded-lg shadow-md">
+                    <h2 class="text-xl font-bold">User Roles Information</h2>
+                    <div class="mt-2 flex flex-wrap gap-2">
+                        {% for role in user_roles %}
+                            {% if role.startswith('http://purl.imsglobal.org/vocab/lis/v2/') %}
+                                <span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full truncate max-w-lg overflow-hidden">...{{ role[39:] }}</span>
+                            {% else %}
+                                <span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full">{{ role }}</span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+
+                <!-- Link Information Card -->
+                <div class="bg-base-100 p-5 rounded-lg shadow-md">
+                    <h2 class="text-xl font-bold pt-2">Link Information</h2>
+                    <p class="mt-2"><strong>Title:</strong> {{ resource_link.get('title', '') }}</p>
+                    <p class="mt-2"><strong>ID:</strong> {{ resource_link.get('id', '') }}</p>
+                    <p class="mt-2"><strong>Description:</strong> {{ resource_link.get('description', '') }}</p>
+                    <p class="mt-2"><strong>Target:</strong> {{ target_link_uri }}</p>
+                </div>
+
+                <!-- Context Information Card -->
+                <div class="bg-base-100 p-5 rounded-lg shadow-md">
+                    <h2 class="text-xl font-bold">Course Information</h2>
+                    <p class="mt-2"><strong>Course Name:</strong> {{ context_data.get('title', '') }}</p>
+                    <p class="mt-2"><strong>Course ID:</strong> {{ context_data.get('id', '') }}</p>
+                    <p class="mt-2"><strong>Label:</strong> {{ context_data.get('label', '') }}</p>
+                    <p class="mt-2"><strong>Type:</strong> {{ context_data.get('type', []) }}</p>
+                    <p class="mt-2"><strong>Source ID:</strong> {{ context_data.get('sourced_id', '') }}</p>
+                </div>
+            </div>
+        </div>
+{% endblock %}
