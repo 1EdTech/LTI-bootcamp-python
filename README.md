@@ -32,6 +32,14 @@ For detailed installation instructions, please see [Activity 0: Installing Prere
 
 ---
 
+# Checklist
+
+A quick checklist is available to confirm everything is running correctly;
+
+- [Checklist](docs/checklist.md)
+
+---
+
 ## **Workshop Activities**
 
 Below is a list of activities that you will complete during the workshop. Each activity has a detailed guide to follow.
