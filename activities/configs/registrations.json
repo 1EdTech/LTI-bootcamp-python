@@ -1,7 +1,7 @@
 {
     "https://platform.ltitraining.net": [{
         "default": true,
-        "client_id": "TvaFylPsR8BtWfR",
+        "client_id": "rF3j1LoERzBuKpj",
         "auth_login_url": "https://platform.ltitraining.net/mod/lti/auth.php",
         "auth_token_url": "https://platform.ltitraining.net/mod/lti/token.php",
         "auth_audience": null,

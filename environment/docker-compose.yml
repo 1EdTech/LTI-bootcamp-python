@@ -1,6 +1,4 @@
-version: '2'
 services:
-
   nginx-proxy:
     image: nginx:alpine
     container_name: nginx-proxy
@@ -10,7 +8,12 @@ services:
     ports:
       - "443:443"
     depends_on:
-      - platform.ltitraining.net
+      - platform
+    networks:
+      default:
+        aliases:
+          - platform.ltitraining.net
+          - tool.ltitraining.net
 
   mariadb:
     image: docker.io/bitnami/mariadb:10.6
@@ -24,9 +27,9 @@ services:
     volumes:
       - 'mariadb_data:/bitnami/mariadb'
 
-  platform.ltitraining.net:
+  platform:
     image: docker.io/bitnami/moodle:4.5.0
-    container_name: platform.ltitraining.net
+    container_name: platform
     ports:
       - '8080:8080'
     environment:
@@ -40,6 +43,19 @@ services:
       - 'moodledata_data:/bitnami/moodledata'
     depends_on:
       - mariadb
+
+
+  tool:
+    build:
+      context: ../activities/
+      dockerfile: ../activities/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - ACTIVITY_NUMBER=4   
+    volumes:
+      - ../activities:/usr/src/app/activities
+  
 
 volumes:
   mariadb_data:
