@@ -1,0 +1,16 @@
+username,firstname,lastname,email,password
+student1,Destiny,Lopez,s1@example.com,_B00tcamp
+student2,Sandra,Freeman,s2@example.com,_B00tcamp
+student3,Marcus,Turner,s3@example.com,_B00tcamp
+student4,Melinda,Pugh,s4@example.com,_B00tcamp
+student5,Joshua,Adams,s5@example.com,_B00tcamp
+student6,Corey,Taylor,s6@example.com,_B00tcamp
+student7,Jeffrey,Underwood,s7@example.com,_B00tcamp
+student8,Deborah,Mason,s8@example.com,_B00tcamp
+student9,Alexis,Velazquez,s9@example.com,_B00tcamp
+student10,James,Olson,s10@example.com,_B00tcamp
+instructor1,Sarah,Mitchell,I1@example.com,_B00tcamp
+instructor2,James,Reynolds,I2@example.com,_B00tcamp
+instructor3,Emily,Carter,I3@example.com,_B00tcamp
+instructor4,David,Brooks,I4@example.com,_B00tcamp
+instructor5,Rachel,Henderson,I5@example.com,_B00tcamp
