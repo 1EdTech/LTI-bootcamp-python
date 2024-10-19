@@ -6,10 +6,14 @@ Before starting the workshop, make sure you have all the necessary software inst
 
 1. **Docker Desktop**
 2. **Python** with `pipenv`
-3. **TailwindCSS CLI**
-4. **Node.js** (to run `npx`)
-5. **Code Editor** (VS Code recommended)
-6. **Administrator Access** (to update the hosts file)
+3. **Code Editor** (VS Code recommended)
+4. **Administrator Access** (to update the hosts file)
+
+### Optional
+
+This project uses TailwindCSS to the visual design.  If you wish to modify the user experience then you may need;
+1. **Node.js** (to run `npx`)
+2. **TailwindCSS CLI**
 
 ### **Note**:
 You will need **administrator access** on your machine to update the hosts file.
@@ -72,46 +76,7 @@ pipenv --version
 
 ---
 
-## **3. TailwindCSS CLI**
-
-TailwindCSS is a utility-first CSS framework which some of the samples use. You may need its CLI for the workshop..
-
-### **macOS & Windows Installation**:
-1. Open your terminal (macOS) or PowerShell (Windows).
-2. Install the TailwindCSS CLI globally using `npm`:
-
-```bash
-npm install -g tailwindcss
-```
-
-### **Verify Installation**:
-To check if TailwindCSS is installed correctly, run:
-
-```bash
-tailwindcss --version
-```
-
----
-
-## **4. Node.js (with npx)**
-
-Node.js is required to run JavaScript-based tools like `npx`.
-
-### **macOS & Windows Installation**:
-1. Download Node.js (LTS version) from [nodejs.org](https://nodejs.org/).
-2. Install it by following the prompts.
-
-### **Verify Installation**:
-To check if Node.js and `npx` are installed correctly, run:
-
-```bash
-node --version
-npx --version
-```
-
----
-
-## **5. Code Editor**
+## **3. Code Editor**
 
 Bring your favorite code editor to the workshop. We recommend using **Visual Studio Code (VS Code)** for the best experience.
 
@@ -122,7 +87,7 @@ VS Code supports extensions for both Python and Node.js development, making it a
 
 ---
 
-## **6. Administrator Access to Update Hosts File**
+## **4. Administrator Access to Update Hosts File**
 
 You will need administrator access to modify the `hosts` file on your machine. This is necessary to map the workshop domains (`platform.ltitraining.net` and `tool.ltitraining.net`) to your local environment.
 
@@ -147,14 +112,55 @@ Make sure to add the following lines to the `hosts` file:
 
 ---
 
+## **5. Node.js (with npx)**
+
+Node.js is required to run JavaScript-based tools like `npx`.
+
+### **macOS & Windows Installation**:
+1. Download Node.js (LTS version) from [nodejs.org](https://nodejs.org/).
+2. Install it by following the prompts.
+
+### **Verify Installation**:
+To check if Node.js and `npx` are installed correctly, run:
+
+```bash
+node --version
+npx --version
+```
+
+---
+
+## **6. TailwindCSS CLI**
+
+TailwindCSS is a utility-first CSS framework which some of the samples use. You may need its CLI for the workshop..
+
+### **macOS & Windows Installation**:
+1. Open your terminal (macOS) or PowerShell (Windows).
+2. Install the TailwindCSS CLI globally using `npm`:
+
+```bash
+npm install -g tailwindcss
+```
+
+### **Verify Installation**:
+To check if TailwindCSS is installed correctly, run:
+
+```bash
+tailwindcss --version
+```
+
+---
+
 ## **Summary**
 
 Ensure that the following tools are installed:
 - Docker Desktop
 - Python 3 with Pipenv
-- TailwindCSS CLI
-- Node.js (with npx)
 - A code editor (VS Code recommended)
 - Administrator access to modify the hosts file
+
+#### Optional:
+- TailwindCSS CLI
+- Node.js (with npx)
 
 Once everything is installed, you’re ready to proceed to the next activity where we’ll set up the Docker environment.

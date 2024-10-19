@@ -17,11 +17,15 @@ Before starting the workshop, please ensure you have the following installed:
 - **Docker Desktop** ([Download here](https://www.docker.com/products/docker-desktop))
 - **Python 3** ([Download here](https://www.python.org/downloads/))
 - **Pipenv** (for Python environment management)
-- **TailwindCSS CLI** (for CSS framework utility)
-- **Node.js** (for running JavaScript-based tools, such as `npx`)
 - **A code editor** (We recommend [VS Code](https://code.visualstudio.com/))
 
 You will also need **administrator access** to update your machine's `hosts` file to map the domains `platform.ltitraining.net` and `tool.ltitraining.net` to your local development environment.
+### Optional
+The code in this workshop uses TailwindCSS.  If you wish to modify the visual aspects of the projects you may need ;
+
+- **TailwindCSS CLI** (for CSS framework utility)
+- **Node.js** (for running JavaScript-based tools, such as `npx`)
+
 
 For detailed installation instructions, please see [Activity 0: Installing Prerequisites](./docs/activity0.md).
 
