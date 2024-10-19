@@ -4,6 +4,8 @@
 
 ### Objective:
 
+![Topology](images/topology.png)
+
 By the end of this activity, you will have cloned the workshop's git repository and created the Docker environment to run a Learning Platform.  We will be using an opensource Learning Management Platform (LMS) called Moodle.  During this Bootcamp we will develop an LTI Tool that will integrate into any mainstream LMS platform via LTI 1.3.
 
 ### Prerequisites:

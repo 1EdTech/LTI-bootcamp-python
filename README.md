@@ -5,6 +5,7 @@ Welcome to the LTI Bootcamp (Python Edition)!
 This repository provides all the necessary files and activities to help you set up a working LTI environment using Docker, Python, and Node.js.
 
 ## **Overview**
+![Topology ](docs/images/topology.png)
 
 In this workshop, we will:
 - Set up a Docker-based environment to run Moodle with LTI support.
@@ -47,6 +48,7 @@ Below is a list of activities that you will complete during the workshop. Each a
 4. **Activity 3: Exploring LTI 1.3 Tool Development** *(Coming Soon)*  
    Dive into the development process of an LTI 1.3 tool and test it with your Moodle platform.
 
+
 ## **Getting Started**
 
 1. Clone this repository to your local machine:
@@ -57,6 +59,8 @@ Below is a list of activities that you will complete during the workshop. Each a
 2. Follow **[Activity 0](./docs/activity0.md)** to install the necessary prerequisites. 
 
 3. Once all prerequisites are installed, follow **[Activity 1](./docs/activity1.md)** to set up your Docker environment and get Moodle running.
+
+4. Some of the common commands you may need to start, stop and clean up your development environments are detailed in [Common Tasks](docs/common_tasks.md).
 
 ---
 
