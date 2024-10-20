@@ -20,18 +20,31 @@ docker-compose ps
 You should see the status as `Up` for the Moodle, MariaDB, and Nginx containers. For example:
 
 ```bash
-    Name                Command          State             Ports
----------------------------------------------------------------------
-nginx-proxy   /docker-entrypoint.sh ngin ...   Up      0.0.0.0:443->443/tcp
-mariadb       /opt/bitnami/scripts/mari ...   Up      3306/tcp
-platform.dev  /opt/bitnami/scripts/mood ...   Up      8080/tcp
+CONTAINER ID   IMAGE                  COMMAND                  CREATED       STATUS       PORTS             
+a9e9b803832b   environment-tool       "/usr/src/app/entryp…"   5 hours ago   Up 5 hours   0.0.0.0:3000->...
+ee39addd9116   nginx:alpine           "/docker-entrypoint.…"   7 hours ago   Up 7 hours   80/tcp, 0.0.0.0:443->...
+f6f32f1edc97   bitnami/moodle:4.5.0   "/opt/bitnami/script…"   7 hours ago   Up 7 hours   0.0.0.0:8080->...
+ec1c0138c758   bitnami/mariadb:10.6   "/opt/bitnami/script…"   7 hours ago   Up 7 hours   3306...
 ```
 
 If the containers are not running, use `docker-compose up` to start them.
 
 ---
+### **Test 2: Access Test Flask Application**
 
-### **Test 2: Access Moodle**
+1. Open your browser.
+2. Navigate to the following URL:
+
+```
+https://tool.ltitraining.net
+```
+
+You should see a success message from the Flask Application page. If the page doesn’t load, double-check that the containers are running, and ensure that your `/etc/hosts` file is correctly configured to resolve `tool.ltitraining.net` to `127.0.0.1`.
+
+
+---
+
+### **Test 3: Access Moodle**
 
 1. Open your browser.
 2. Navigate to the following URL:
@@ -42,46 +55,13 @@ https://platform.ltitraining.net
 
 You should see the Moodle login page. If the page doesn’t load, double-check that the containers are running, and ensure that your `/etc/hosts` file is correctly configured to resolve `platform.ltitraining.net` to `127.0.0.1`.
 
----
-
-## **2. Python and Pipenv Environment**
-
-### **Test 3: Verify Python Environment**
-
-1. In the terminal or PowerShell, activate the Python environment with Pipenv:
-
-```bash
-pipenv shell
-```
-
-2. Once inside the environment, verify that Python is working by running:
-
-```bash
-python --version
-```
-
-This should return the Python version, confirming that the environment is correctly set up.
-
----
-
-### **Test 4: Run the Python Code**
-
-Navigate to the `exercise4/` directory and run the Flask app (or another Python script) to ensure everything is working:
-
-```bash
-cd exercise1
-python app.py
-```
-
-You should see the Flask app running, and it will provide a URL (typically `http://127.0.0.1:3000/`) where you can access the app in your browser.
 
 ---
 
 
 ## **Summary of Quick Tests**:
 - **Test 1**: Check Docker container status.
-- **Test 2**: Access Moodle via `https://platform.ltitraining.net`.
-- **Test 3**: Verify the Python environment.
-- **Test 4**: Run the Python Flask app.
+- **Test 2**: Access Test Application via `https://tool.ltitraining.net`.
+- **Test 3**: Access Moodle via `https://platform.ltitraining.net`.
 
 Running through these tests will ensure that everything is correctly set up and functioning for the workshop.

@@ -13,6 +13,8 @@ By the end of this activity, you will have cloned the workshop's git repository 
 - Docker and Docker Compose installed on your machine.
 - Access to modify the local `/etc/hosts` file (administrator privileges may be required).
 
+See the [Guide for setting up the prerequisites](activity0.md) if you need further assistance.
+
 ---
 
 ### **Steps to Follow:**
@@ -35,34 +37,7 @@ Once the repository is cloned, navigate to the `environment/` directory where th
 cd environment
 ```
 
-#### 3. **Check the Docker Compose File**
-
-In this step, take a look at the `docker-compose.yml` file, which defines the services for running Moodle, the proxy server, and the database. Open it in your favorite text editor (e.g., `nano`, `vim`, or a code editor like VS Code).
-
-```
-Open docker-compose.yml in your Code Editor
-```
-
-Ensure that the file includes services for:
-- **Moodle** (Moodle Docker image)
-- **MariaDB** (Database service)
-- **Nginx** (Proxy server with SSL certificates)
-
-You should also see the environment variables set for Moodle and MariaDB in this file.
-
-**Note:**  This is just a local development project and is not production-ready.  Please do not use this in production.
-
-#### 4. **Verify the Nginx Configuration**
-
-Open and review the `nginx.conf` file to confirm that it correctly handles SSL for `platform.ltitraining.net` and `tool.ltitraining.net`.
-
-```
-Review nginx.conf in your code editor
-```
-
-This file includes SSL configurations for the Moodle platform and the LTI tool, routing traffic via the reverse proxy.
-
-#### 5. **Update the Local Hosts File**
+#### 3. **Update the Local Hosts File**
 
 In this setup, we will use 2 real domains with real (browser-trusted) SSL certificates.  We will configure the routing on your PC to route these domains locally within your machine.  This allows us to focus on LTI development without the complexities of browser security getting in the way.
 
@@ -96,42 +71,23 @@ To ensure that the domains `platform.ltitraining.net` and `tool.ltitraining.net`
 
 This step ensures that your browser correctly resolves these domains to your local machine when you access them.
 
-#### 6. **Start the Docker Environment**
+#### 4. **Start the Docker Environment**
 
 Once you’ve reviewed the configurations, start the Docker containers using Docker Compose. This will spin up Moodle, MariaDB, and Nginx services.
 
 ```bash
-docker-compose up -d
+docker-compose up --build
 ```
 
 This command will:
 - Build and start all the services defined in the `docker-compose.yml` file.
-- Run the services in detached mode (`-d`), so they run in the background.
+- Configures and runs the services 
+- Please note:  This may take a few mins to complete the first time.
 
-#### 7. **Check the Running Containers**
 
-To verify that everything is running correctly, check the status of the Docker containers.
+#### 5. **Run through the Checklist**
 
-```bash
-docker ps
-```
-
-You should see the Moodle, MariaDB, and Nginx services running.
-
-#### 8. **Access Moodle**
-
-Open your browser and access Moodle using the following URL:
-
-```
-https://platform.ltitraining.net
-```
-
-If everything is set up correctly, you should see the Moodle login page or the platform's homepage.
-
-You should be able to login using the default username and password;
-
-- user:  user
-- password: bitnami
+To verify that everything is running correctly, complete the checks the [Checklist](checklist.md)
 
 ---
 
@@ -151,6 +107,13 @@ You should be able to login using the default username and password;
 
 ---
 
+### **Questions &  Common Tasks:**
+
+To understand how to start, stop, reset, clean up,  details are outlined in the [Common Tasks Document](common_tasks.md)
+
+---
+
 ### **Activity Summary:**
 You have now cloned the repository, updated your hosts file, started the Docker environment, and accessed Moodle via the `platform.ltitraining.net` domain. You are ready to move on to the next activity, where you will configure the Moodle LTI tool and begin developing.
+
 
