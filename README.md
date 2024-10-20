@@ -16,11 +16,12 @@ In this workshop, we will:
 
 Before starting the workshop, please ensure you have the following installed:
 - **Docker Desktop** ([Download here](https://www.docker.com/products/docker-desktop))
-- **Python 3** ([Download here](https://www.python.org/downloads/))
-- **Pipenv** (for Python environment management)
 - **A code editor** (We recommend [VS Code](https://code.visualstudio.com/))
 
 You will also need **administrator access** to update your machine's `hosts` file to map the domains `platform.ltitraining.net` and `tool.ltitraining.net` to your local development environment.
+
+Python is provided within the Docker environment,  so  need to install specific versions of Python to get the applicaition running.
+
 ### Optional
 The code in this workshop uses TailwindCSS.  If you wish to modify the visual aspects of the projects you may need ;
 
@@ -68,7 +69,11 @@ Below is a list of activities that you will complete during the workshop. Each a
 
 3. Once all prerequisites are installed, follow **[Activity 1](./docs/activity1.md)** to set up your Docker environment and get Moodle running.
 
-4. Some of the common commands you may need to start, stop and clean up your development environments are detailed in [Common Tasks](docs/common_tasks.md).
+4. Run the checks in the [Checklist](docs/checklist.md) to confirm everything is running as expected.
+
+
+## Common Tasks
+Some of the common commands you may need to start, stop and clean up your development environments are detailed in [Common Tasks](docs/common_tasks.md).
 
 ---
 
