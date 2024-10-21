@@ -39,6 +39,8 @@ If the containers are not running, use `docker-compose up` to start them.
 https://tool.ltitraining.net
 ```
 
+![Congratulations](images/congratulationsMsg.png)
+
 You should see a success message from the Flask Application page. If the page doesn’t load, double-check that the containers are running, and ensure that your `/etc/hosts` file is correctly configured to resolve `tool.ltitraining.net` to `127.0.0.1`.
 
 

@@ -4,8 +4,8 @@ from flask import session, render_template
 
 def register(app):
     @app.route("/")
-    def basic():
-        return render_template("basic.html")
+    def landing_page():
+        return render_template("landing_page.html")
 
     @app.route("/home")
     def home():
