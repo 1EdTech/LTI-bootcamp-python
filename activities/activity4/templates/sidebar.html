@@ -1,10 +1,37 @@
-<div class=" hidden lg:transform lg:translate-x-0 -translate-x-full transition-transform duration-300 ease-in-out lg:block min-w-64 bg-primary text-primary-content p-5 sidebar min-h-screen">
-    <h2 class="text-xl font-bold mb-5 lg:display">LTI 1.3 Bootcamp</h2>
-    <ul class="menu p-0">
-        <li><a href="{{ url_for('home') }}" class="btn btn-ghost">🏠 Home</a></li>
-        <li><a href="{{ url_for('nrps') }}" class="btn btn-ghost">👥 Names & Roles</a></li>
-        <li><a href="{{ url_for('ags') }}" class="btn btn-ghost">📑 Assignments & Grades</a></li>
-        <li><a href="{{ url_for('id_token') }}" class="btn btn-ghost">🔑 Id Token</a></li>
-
+<div class="hidden lg:transform lg:translate-x-0 -translate-x-full transition-transform duration-300 ease-in-out lg:block min-w-64 bg-primary text-white p-5 sidebar min-h-screen shadow-lg">
+    <h2 class="text-xl font-bold mb-5">LTI 1.3 Bootcamp</h2>
+    <ul class="menu p-0 space-y-2">
+        <li>
+            <a href="{{ url_for('home') }}" class="btn btn-ghost flex items-center space-x-2 
+                {% if request.path == url_for('home') %} bg-primary-focus text-white {% endif %} 
+                hover:bg-primary-focus transition-colors duration-200">
+                <span>🏠</span>
+                <span>Home</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('nrps') }}" class="btn btn-ghost flex items-center space-x-2 
+                {% if request.path == url_for('nrps') %} bg-primary-focus text-white {% endif %} 
+                hover:bg-primary-focus transition-colors duration-200">
+                <span>👥</span>
+                <span>Names & Roles</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('ags') }}" class="btn btn-ghost flex items-center space-x-2 
+                {% if request.path == url_for('ags') %} bg-primary-focus text-white {% endif %} 
+                hover:bg-primary-focus transition-colors duration-200">
+                <span>📑</span>
+                <span>Assignments & Grades</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('id_token') }}" class="btn btn-ghost flex items-center space-x-2 
+                {% if request.path == url_for('id_token') %} bg-primary-focus text-white {% endif %} 
+                hover:bg-primary-focus transition-colors duration-200">
+                <span>🔑</span>
+                <span>Id Token</span>
+            </a>
+        </li>
     </ul>
 </div>
