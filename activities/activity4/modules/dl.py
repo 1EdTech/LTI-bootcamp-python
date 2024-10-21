@@ -7,15 +7,9 @@ from pylti1p3.tool_config import ToolConfJsonFile
 from pylti1p3.deep_link_resource import DeepLinkResource
 import json
 
-from utils import get_lti_config_path, get_launch_data_storage
+from utils import get_lti_config_path, get_launch_data_storage, find_course_by_id, load_courses
 
 def register(app):
-    def load_courses():
-        # Load the courses from the JSON file
-        courses_path =  os.path.join(app.root_path, '..', 'configs', 'resources.json')
-        with open(courses_path) as f:
-            courses = json.load(f)
-        return courses
 
     @app.route('/deeplink/', methods=['GET'])
     def deeplink():
@@ -23,7 +17,7 @@ def register(app):
         launch_data = session.get('launch_data', {})
         launch_id = session.get('launch_id', '')
 
-        courses = load_courses()
+        courses = load_courses(app)
         
         tpl_kwargs = {
             'page_title': "Deeplinking",
@@ -62,8 +56,7 @@ def register(app):
         if not message_launch.is_deep_link_launch():
             raise Forbidden('Must be a deep link!')
 
-        courses = load_courses()
-        course = next((course for course in courses if course['id'] == int(resource_id)), None)
+        course = find_course_by_id(app, resource_id)
         
         if not course:
             abort(404, description=f"Course with ID {resource_id} not found")

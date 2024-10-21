@@ -3,33 +3,29 @@
     <ul class="menu p-0 space-y-2">
         <li>
             <a href="{{ url_for('home') }}" class="btn btn-ghost flex items-center space-x-2 
-                {% if request.path == url_for('home') %} bg-primary-focus text-white {% endif %} 
+                {% if request.path == url_for('home') %} bg-primary-focus text-blue-50 {% else %} text-white {% endif %} 
                 hover:bg-primary-focus transition-colors duration-200">
-                <span>🏠</span>
                 <span>Home</span>
             </a>
         </li>
         <li>
             <a href="{{ url_for('nrps') }}" class="btn btn-ghost flex items-center space-x-2 
-                {% if request.path == url_for('nrps') %} bg-primary-focus text-white {% endif %} 
+                {% if request.path == url_for('nrps') %} bg-primary-focus text-blue-50 {% else %} text-white {% endif %} 
                 hover:bg-primary-focus transition-colors duration-200">
-                <span>👥</span>
                 <span>Names & Roles</span>
             </a>
         </li>
         <li>
             <a href="{{ url_for('ags') }}" class="btn btn-ghost flex items-center space-x-2 
-                {% if request.path == url_for('ags') %} bg-primary-focus text-white {% endif %} 
+                {% if request.path == url_for('ags') %} bg-primary-focus text-blue-50 {% else %} text-white {% endif %} 
                 hover:bg-primary-focus transition-colors duration-200">
-                <span>📑</span>
                 <span>Assignments & Grades</span>
             </a>
         </li>
         <li>
             <a href="{{ url_for('id_token') }}" class="btn btn-ghost flex items-center space-x-2 
-                {% if request.path == url_for('id_token') %} bg-primary-focus text-white {% endif %} 
+                {% if request.path == url_for('id_token') %} bg-primary-focus text-blue-50 {% else %} text-white {% endif %} 
                 hover:bg-primary-focus transition-colors duration-200">
-                <span>🔑</span>
                 <span>Id Token</span>
             </a>
         </li>

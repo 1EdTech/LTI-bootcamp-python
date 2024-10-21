@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+    <title>Warning</title>
+</head>
+<body class="bg-red-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white shadow-lg rounded-lg p-10 max-w-md text-center">
+        <h1 class="text-2xl font-bold text-red-600 mb-4">Access Denied</h1>
+        <p class="text-lg text-gray-700">{{ message }}</p>
+        <p class="mt-4 text-gray-500">Please ensure you are accessing this application through an LTI 1.3 launch.</p>
+    </div>
+</body>
+</html>

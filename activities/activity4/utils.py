@@ -17,11 +17,16 @@ def get_lti_config_path(app):
 def get_launch_data_storage():
     return FlaskCacheDataStorage(cache)
 
-def load_courses():
+def load_courses(app):
+    # Load the courses from the JSON file
     courses_path =  os.path.join(app.root_path, '..', 'configs', 'resources.json')
     with open(courses_path) as f:
         courses = json.load(f)
     return courses
+
+def find_course_by_id(app, course_id):
+    courses = load_courses(app)
+    return next((course for course in courses if course['id'] == int(course_id)), None)
 
 class ReverseProxied:
     def __init__(self, app):
