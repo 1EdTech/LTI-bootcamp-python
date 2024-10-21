@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html data-theme="corporate " lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+    
+    <title>Deep Linking - Select Resources or AI Models</title>
+</head>
+<body class="bg-base-200" style="visibility: hidden;">
+    <script>0</script> <!-- Firefox hack for FOUC -->
+
+    <header class="bg-primary text-white p-5">
+        <div class="container mx-auto">
+            <h1 class="text-4xl font-bold">Deep Linking Demonstration</h1>
+            <p class="mt-2 text-lg">
+                Select resources or AI models to return to the platform.
+            </p>
+        </div>
+    </header>
+    
+    <div class="container mx-auto py-10">
+        <div class="bg-base-100 p-5 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold">Select a Resource or AI Model</h2>
+            <p class="mt-2 text-lg">Click a button to select a resource or, if choosing the AI Digital Assistant, select an AI model to pass with the deep link.</p>
+        </div>
+
+        <!-- Dynamically load courses -->
+        <form method="POST" action="/submit_resources">
+            <div class="bg-base-100 p-5 rounded-lg shadow-md mt-5">
+                <h2 class="text-xl font-bold">Select a Course</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    {% for course in courses %}
+                        <div class="bg-base-100 p-5 rounded-lg shadow-md">
+                            <p><strong>{{ course.title }}</strong></p>
+                            <p>{{ course.description }}</p>
+                            {% if course.title == 'My Digital Assistant' %}
+                                <button type="button" id="aiButton" class="btn btn-primary mt-2">Select {{ course.title }}</button>
+                                <div id="aiModels" class="mt-4 hidden">
+                                    <h3 class="text-lg font-bold">Select an AI Model:</h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-3">
+                                        <a class="btn btn-primary mt-2" href="{{ url_for('deeplink_response', resource_id=course.id) + '?model_id=ai_model_a' }}">Select AI Model A (Content Categorization)</a>
+                                        <a class="btn btn-primary mt-2" href="{{ url_for('deeplink_response', resource_id=course.id) + '?model_id=ai_model_b' }}">Select AI Model B (Sentiment Analysis)</a>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <a class="btn btn-primary mt-2" href="{{ url_for('deeplink_response', resource_id=course.id) }}">Select Resource</a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript to show AI model selection when AI Digital Assistant is selected
+        document.getElementById('aiButton').addEventListener('click', function() {
+            var aiModelsSection = document.getElementById('aiModels');
+            aiModelsSection.classList.remove('hidden');
+        });
+
+        // Display the body when the DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.visibility = 'visible';
+        });
+    </script>
+</body>
+</html>
