@@ -59,32 +59,7 @@ See [Activity 1](activity1.md) for more details
 
 ---
 
-## **3. Working with the Python Environment**
-
-This project uses **Pipenv** to manage Python dependencies. Here's how to start the environment and run the code.
-
-### **Starting the Pipenv Environment**
-
-1. Navigate to the root directory of the project.
-2. Run the following command to activate the environment:
-
-```bash
-pipenv shell
-```
-
-This will activate the virtual environment with all necessary dependencies.
-
-### **Running the Python Code**
-
-Once inside the Pipenv environment, you can run the Flask app or any other Python scripts. For example, to run the Flask app:
-
-```bash
-python exercise4/app.py
-```
-
----
-
-## **4. TailwindCSS: Running `npx` in Watch Mode**
+## **3. TailwindCSS: Running `npx` in Watch Mode**
 
 If you need to modify or regenerate the CSS, you can run TailwindCSS in watch mode. This allows you to automatically generate new CSS when changes are made.
 
@@ -92,10 +67,10 @@ If you need to modify or regenerate the CSS, you can run TailwindCSS in watch mo
 
 To run TailwindCSS in watch mode:
 
-1. Navigate to the `exercise4/` directory:
+1. Navigate to the relevant code directory (i.e. activity4):
 
 ```bash
-cd exercise4
+cd activity4
 ```
 
 2. Run the following command:
@@ -112,7 +87,7 @@ Since the `output.css` file is already included in the sample code, **Node.js an
 
 ---
 
-## **5. Cleaning Up Data**
+## **4. Cleaning Up Data**
 
 If you want to completely reset the environment, including removing any persisted data, follow these steps:
 
@@ -135,7 +110,6 @@ If you want to completely reset the environment, including removing any persiste
 This document covers:
 - Managing Docker containers (`up`, `stop`, `down` with volumes).
 - Updating the `hosts` file for proper domain resolution.
-- Starting the Pipenv environment and running Python code.
 - Running `npx tailwind` in watch mode to regenerate CSS.
 - Cleaning up persisted data and volumes.
 
