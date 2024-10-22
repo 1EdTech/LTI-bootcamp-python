@@ -51,11 +51,20 @@ Below is a list of activities that you will complete during the workshop. Each a
 2. **[Activity 1: Setting Up the Git Repository and Docker Environment](./docs/activity1.md)**  
    Learn how to clone the repository and set up your Docker environment for running Moodle and the LTI tool.
 
-3. **Activity 2: Configuring Moodle with LTI Tool** *(Coming Soon)*  
+3. **[Activity 2: Configuring Moodle for the LTI Tool](docs/activity2.md)**
    This activity will guide you through configuring Moodle as the LTI platform and setting up the tool for testing.
 
-4. **Activity 3: Exploring LTI 1.3 Tool Development** *(Coming Soon)*  
+4. **[Activity 3: Registering the LTI Tool in Moodle](docs/activity3.md)** 
+   This activity completes the setup process for launching into the tool from Moodle.  
+
+5. **[Activity 4: LTI Services]()** *(Coming Soon)*
    Dive into the development process of an LTI 1.3 tool and test it with your Moodle platform.
+
+6. **[Activity 5: Deeplinking]()** *(Coming Soon)*
+   Learn how to create and import links into the Platform from your tool.  We will explore custom parameters.
+
+7. **[Activity 6: Assigments and Grades]()** *(Coming Soon)*
+   Send data from your tool into the Platform.  We will explore the Gradebook and the workflows for managing grades from a tool
 
 
 ## **Getting Started**

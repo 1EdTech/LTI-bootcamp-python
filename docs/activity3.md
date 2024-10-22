@@ -1,4 +1,4 @@
-# Workshop Activity 3: Configuring the LTI Tool in Moodle
+# Workshop Activity 3: Registering the LTI Tool in Moodle
 
 ### Objective:
 By the end of this activity, you will have successfully configured an LTI 1.3 tool in Moodle, enabling it to launch and interact with the course environment.
