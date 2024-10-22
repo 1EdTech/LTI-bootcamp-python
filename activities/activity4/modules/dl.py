@@ -59,10 +59,12 @@ def register(app):
             .set_title(course.get("title", "Resource " + resource_id))
         
         # Get the optional 'model_id' from query parameters
-        model_id = request.args.get('model_id', 'default')
+        model_id = request.args.get('model_id')
         
         if model_id:
             resource.set_custom_params({'model_id': model_id})
+        else:
+            resource.set_custom_params(None)
         
 
         html = message_launch.get_deep_link().output_response_form([resource])
