@@ -67,10 +67,10 @@ If you need to modify or regenerate the CSS, you can run TailwindCSS in watch mo
 
 To run TailwindCSS in watch mode:
 
-1. Navigate to the relevant code directory (i.e. activity4):
+1. Navigate to the relevant code directory (i.e. activity):
 
 ```bash
-cd activity4
+cd activity
 ```
 
 2. Run the following command:

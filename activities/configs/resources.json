@@ -1,7 +1,33 @@
 [
-    {"id": 1, "title": "Introduction to Artificial Intelligence: Understanding AI in Today's World", "description": "Explore the fundamentals of AI and its impact on various industries."},
-    {"id": 2, "title": "Modern Web Development: From HTML to React", "description": "Learn the full spectrum of web development, from the basics of HTML to advanced React techniques."},
-    {"id": 3, "title": "The Art of Digital Photography: Techniques and Tools", "description": "Master the art of digital photography, learning about different techniques and the tools needed."},
-    {"id": 4, "title": "Sustainable Living: Practices for Eco-Friendly Households", "description": "Discover practices that can make your lifestyle more sustainable and eco-friendly."},
-    {"id": 5, "title": "My Digital Assistant", "description": "A digital assistant able to support you with your work."}
+    {
+        "id": 1,
+        "title": "Activity: Basic Launch",
+        "description": "Complete the setup process for launching into the tool from Moodle.",
+        "activity_id": "1"
+    },
+
+    {
+        "id": 2,
+        "title": "Activity: Deep Linking",
+        "description": "Learn how to create and import links into the Platform from your tool. We will explore custom parameters.",
+        "activity_id": "3"
+    },
+    {
+        "id": 3,
+        "title": "Activity: Names & Roles Provisioning",
+        "description": "Learn how to enable and configure key LTI services such as Assignment and Grade Services and how to integrate them with your tool.",
+        "activity_id": "4"
+    },
+    {
+        "id": 4,
+        "title": "Activity: Assignments and Grades",
+        "description": "Send data from your tool into the Platform. We will explore the Gradebook and the workflows for managing grades from a tool.",
+        "activity_id": "5"
+    },
+    {
+        "id": 5,
+        "title": "My Digital Assistant",
+        "description": "A digital assistant able to support you with your work.",
+        "activity_id": "6"
+    }
 ]

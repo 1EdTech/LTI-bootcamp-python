@@ -1,4 +1,4 @@
-from flask import render_template, request, jsonify
+from flask import render_template, request, jsonify, session
 from werkzeug.exceptions import Forbidden
 from pylti1p3.lineitem import LineItem
 from pylti1p3.grade import Grade
@@ -11,6 +11,7 @@ def register(app):
     @app.route("/ags")
     def ags():
         launch_id, message_launch = get_message_launch(app)
+        launch_data = session.get('launch_data')
 
         if not message_launch.has_ags():
             raise Forbidden('AGS not enabled!')
@@ -19,9 +20,12 @@ def register(app):
 
         lineitems = ags_service.get_lineitems()
 
+        activity_id = int(launch_data.get('https://purl.imsglobal.org/spec/lti/claim/custom', {}).get('activity_id', 1))
+
         tpl_kwargs = {
             'page_title': "Assignments and Grades",
             'lineitems': lineitems,
+            'activity_id': activity_id
         }
 
         return render_template("ags.html", **tpl_kwargs)

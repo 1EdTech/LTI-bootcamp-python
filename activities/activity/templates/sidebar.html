@@ -8,6 +8,7 @@
                 <span>Home</span>
             </a>
         </li>
+        {% if activity_id >= 4 %}                
         <li>
             <a href="{{ url_for('nrps') }}" class="btn btn-ghost flex items-center space-x-2 
                 {% if request.path == url_for('nrps') %} bg-primary-focus text-blue-50 {% else %} text-white {% endif %} 
@@ -15,6 +16,8 @@
                 <span>Names & Roles</span>
             </a>
         </li>
+        {% endif %}
+        {% if activity_id >= 5 %}                
         <li>
             <a href="{{ url_for('ags') }}" class="btn btn-ghost flex items-center space-x-2 
                 {% if request.path == url_for('ags') %} bg-primary-focus text-blue-50 {% else %} text-white {% endif %} 
@@ -22,6 +25,7 @@
                 <span>Assignments & Grades</span>
             </a>
         </li>
+        {% endif %}
         <li>
             <a href="{{ url_for('id_token') }}" class="btn btn-ghost flex items-center space-x-2 
                 {% if request.path == url_for('id_token') %} bg-primary-focus text-blue-50 {% else %} text-white {% endif %} 

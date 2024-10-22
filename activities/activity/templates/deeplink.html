@@ -44,7 +44,7 @@
                                     </div>
                                 </div>
                             {% else %}
-                                <a class="btn btn-primary mt-2" href="{{ url_for('deeplink_response', resource_id=course.id) }}">Select Resource</a>
+                                <a class="btn btn-primary mt-2" href="{{ url_for('deeplink_response', resource_id=course.id)+ '?activity_id=' + course.activity_id   }}">Select Resource</a>
                             {% endif %}
                         </div>
                     {% endfor %}

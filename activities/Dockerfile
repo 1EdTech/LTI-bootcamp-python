@@ -11,7 +11,7 @@ COPY Pipfile Pipfile.lock ./
 RUN pip install pipenv && pipenv install --system --deploy
 
 # Copy all the activities into the container
-COPY activity4 /usr/src/app/activities/activity4
+COPY activity /usr/src/app/activities/activity
 
 # Copy the entrypoint script
 COPY entrypoint.sh /usr/src/app/entrypoint.sh

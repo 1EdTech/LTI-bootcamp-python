@@ -33,8 +33,9 @@ def register(app):
             resource_id = target_link_uri.split('/')[-2]  # Getting the second to last part
             resource_details = find_course_by_id(app, resource_id)
 
-        # Check if model_id exists in custom claims
+        # Some examples for handling custom parameters
         model_id = launch_data.get('https://purl.imsglobal.org/spec/lti/claim/custom', {}).get('model_id')
+        activity_id = int(launch_data.get('https://purl.imsglobal.org/spec/lti/claim/custom', {}).get('activity_id', 1))
 
         tpl_kwargs = {
             'page_title': "Home",
@@ -46,6 +47,7 @@ def register(app):
             'context_data': context_data,
             'resource_details': resource_details,
             'model_id': model_id,
+            'activity_id': activity_id,
         }
         return render_template("home.html", **tpl_kwargs)
 
@@ -54,11 +56,13 @@ def register(app):
         # Get launch data from session
         launch_data = session.get('launch_data', {})
         launch_id = session.get('launch_id', '')
+        activity_id = int(launch_data.get('https://purl.imsglobal.org/spec/lti/claim/custom', {}).get('activity_id', 1))
         
         tpl_kwargs = {
             'page_title': "ID Token",
             'launch_id': launch_id,
-            'launch_data': launch_data
+            'launch_data': launch_data,
+            'activity_id': activity_id,
         }
 
         return render_template("id_token.html", **tpl_kwargs)

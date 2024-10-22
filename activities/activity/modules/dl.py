@@ -60,8 +60,11 @@ def register(app):
         
         # Get the optional 'model_id' from query parameters
         model_id = request.args.get('model_id')
+        activity_id = request.args.get('activity_id')
         
-        if model_id:
+        if activity_id:   
+            resource.set_custom_params({'activity_id': activity_id})
+        elif model_id:
             resource.set_custom_params({'model_id': model_id})
         else:
             resource.set_custom_params(None)
