@@ -77,6 +77,12 @@ Make sure to add the following lines to the `hosts` file:
 127.0.0.1 tool.ltitraining.net
 ```
 
+On some versions of MacOS the change may not be immediate.  You can flush the dns to force the change to take place;
+
+```
+sudo killall -HUP mDNSResponder
+```
+
 ---
 
 If the above files are installed,  You should be all set for the workshop.

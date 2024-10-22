@@ -30,7 +30,22 @@ ec1c0138c758   bitnami/mariadb:10.6   "/opt/bitnami/script…"   7 hours ago   U
 If the containers are not running, use `docker-compose up` to start them.
 
 ---
-### **Test 2: Access Test Flask Application**
+### **Test 2: Ping the domains
+
+From a terminal console, test you should be able to ping the platform and tool environments;
+
+```
+ping tool.ltitraining.net
+```
+
+```
+ping platform.ltitraining.net
+```
+
+You should see successful replies coming from both environments
+
+---
+### **Test 3: Access Test Flask Application**
 
 1. Open your browser.
 2. Navigate to the following URL:
@@ -46,7 +61,7 @@ You should see a success message from the Flask Application page. If the page do
 
 ---
 
-### **Test 3: Access Moodle**
+### **Test 4: Access Moodle**
 
 1. Open your browser.
 2. Navigate to the following URL:
@@ -63,7 +78,8 @@ You should see the Moodle login page. If the page doesn’t load, double-check t
 
 ## **Summary of Quick Tests**:
 - **Test 1**: Check Docker container status.
-- **Test 2**: Access Test Application via `https://tool.ltitraining.net`.
-- **Test 3**: Access Moodle via `https://platform.ltitraining.net`.
+- **Test 3**: Ping the platform and tool environments
+- **Test 3**: Access Test Application via `https://tool.ltitraining.net`.
+- **Test 4**: Access Moodle via `https://platform.ltitraining.net`.
 
 Running through these tests will ensure that everything is correctly set up and functioning for the workshop.

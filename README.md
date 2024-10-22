@@ -20,7 +20,7 @@ Before starting the workshop, please ensure you have the following installed:
 
 You will also need **administrator access** to update your machine's `hosts` file to map the domains `platform.ltitraining.net` and `tool.ltitraining.net` to your local development environment.
 
-Python is provided within the Docker environment,  so  need to install specific versions of Python to get the applicaition running.
+Python is provided within the Docker environment,  so there is no need to install specific versions of Python to get the application running.
 
 ### Optional
 The code in this workshop uses TailwindCSS.  If you wish to modify the visual aspects of the projects you may need ;

@@ -88,10 +88,13 @@ Most of this information is already populated on the example code.
 
 #### 5. **Test the Tool Configuration**
 
+Now it's finally time to do a basic launch of the tool!
+
 1. Navigate to a course where you want to test the LTI tool (e.g., the "Bootcamp" course created in Activity 2).
 2. From the course page, click **Turn editing on**.
 3. In any section, click **Add an activity or resource** and select **External tool** from the list.
 4. In the **Preconfigured tool** dropdown, select the LTI tool you just created.
+5. Provide an **Activity Name** (i.e. Activity Basic Launch)
 5. Click **Save and display** to launch the tool.
 
 If everything is set up correctly, your LTI tool should now launch within Moodle and be able to interact with the course environment.
