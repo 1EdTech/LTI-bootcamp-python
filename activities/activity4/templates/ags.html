@@ -5,38 +5,159 @@
 {% block content %}
 <div class="bg-base-100 p-5 rounded-lg shadow-md mt-5">
     <h1 class="text-2xl font-bold">Assignments & Grades</h1>
-    <p class="py-2">Below is the Grade Book, showing individuals and their respective grades for each line item.</p>
-    <div class="overflow-x-auto mt-5">
-        <table class="table-auto w-full">
-            <thead>
-                <tr>
-                    <th class="px-4 py-2 sticky top-0 bg-white">Name</th>
-                    {% for lineitem in lineitems %}
-                        <th class="px-4 py-2 sticky top-0 bg-white break-words">{{ lineitem.label }}</th>
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for individual in individuals %}
-                    <tr>
-                        <td class="border px-4 py-2">{{ individual.name }}</td>
-                        <!-- {% for grade in individual.grades %}
-                            <td class="border px-4 py-2">{{ grade }}</td>
-                        {% endfor %} -->
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <p class="py-2">The Assignments & Grades Service allows an LTI tool to work with the Gradebook in the Platform.</p>
+</div>
+
+<div class="bg-base-100 p-5 rounded-lg shadow-md mt-5">
+    <!-- Dropdown for Line Items and Create Button -->
+    <div class="flex items-center mt-4">
+        <label for="lineitems" class="block text-lg font-medium mr-2">Select Line Item:</label>
+        <select id="lineitems" class="select select-primary block w-full border-gray-300 rounded-md shadow-sm mr-2">
+            <option value="">-- Select a Line Item --</option>
+            {% for lineitem in lineitems %}
+                <option value="{{ lineitem.id | e }}">{{ lineitem.label }}</option>
+            {% endfor %}
+        </select>
+        <button id="create-lineitem-btn" class="btn btn-primary">Create</button>
     </div>
 </div>
+
+<!-- Read-only Line Item Details -->
+<div id="lineitem-details" class="mt-5 hidden">
+    <h2 class="text-xl font-bold">Line Item Details</h2>
+    <div class="bg-base-100 p-5 rounded-lg shadow-md">
+        <p><strong>Label:</strong> <span id="lineitem-label-readonly"></span></p>
+        <p><strong>Max Score:</strong> <span id="lineitem-maxscore-readonly"></span></p>
+        <p><strong>Resource ID:</strong> <span id="lineitem-resource-id-readonly"></span></p>
+        <p><strong>Resource Link ID:</strong> <span id="lineitem-resource-link-id-readonly"></span></p>
+        <p><strong>Tag:</strong> <span id="lineitem-tag-readonly"></span></p>
+    </div>
+</div>
+
+<!-- Modal for Line Item Creation -->
+<input type="checkbox" id="lineitem-modal" class="modal-toggle" />
+<label for="lineitem-modal" class="modal cursor-pointer">
+    <label class="modal-box relative" for="">
+        <h2 class="text-xl font-bold">Create New Line Item</h2>
+        <form id="form-lineitem" class="bg-base-100 p-5 rounded-lg shadow-md">
+            <div class="mb-4">
+                <label for="lineitem-label" class="block text-sm font-medium">Label:</label>
+                <input type="text" id="lineitem-label" name="label" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            </div>
+            <div class="mb-4">
+                <label for="lineitem-tag" class="block text-sm font-medium">Tag:</label>
+                <input type="text" id="lineitem-tag" name="tag" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            </div>
+            <div class="mb-4">
+                <label for="lineitem-maxscore" class="block text-sm font-medium">Max Score:</label>
+                <input type="number" id="lineitem-maxscore" name="maxScore" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            </div>
+            <div class="mb-4">
+                <label for="lineitem-resource-id" class="block text-sm font-medium">Resource ID:</label>
+                <input type="text" id="lineitem-resource-id" name="resourceId" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            </div>
+            <div class="flex justify-end">
+                <button type="submit" class="btn btn-primary">Create Line Item</button>
+                <label for="lineitem-modal" class="btn btn-secondary ml-2 cursor-pointer">Cancel</label>
+            </div>
+        </form>
+    </label>
+</label>
+
+<!-- Confirmation Message -->
+<div id="confirmation-message" class="mt-4 hidden text-green-600">
+    Line item created successfully!
+</div>
+
 {% endblock %}
 
 {% block scripts %}
 <script>
-  
+    document.getElementById('lineitems').addEventListener('change', function() {
+        const lineitemId = encodeURIComponent(this.value); // URL encode the lineitemId
+        if (lineitemId) {
+            fetch(`/api/lineitem/${lineitemId}`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Line item not found');
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('lineitem-label-readonly').innerText = data.label;
+                    document.getElementById('lineitem-maxscore-readonly').innerText = data.maxScore;
+                    document.getElementById('lineitem-resource-id-readonly').innerText = data.resourceId;
+                    document.getElementById('lineitem-resource-link-id-readonly').innerText = data.resourceLinkId;
+                    document.getElementById('lineitem-tag-readonly').innerText = data.tag; // Display the tag
+                    document.getElementById('lineitem-details').classList.remove('hidden');
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('Error fetching line item details');
+                });
+        } else {
+            document.getElementById('lineitem-details').classList.add('hidden');
+        }
+    });
 
+    document.getElementById('create-lineitem-btn').addEventListener('click', function() {
+        // Show the modal dialog for creating a new line item
+        document.getElementById('lineitem-modal').checked = true; 
+        document.getElementById('lineitem-details').classList.add('hidden');
+        document.getElementById('confirmation-message').classList.add('hidden');
+    });
 
+    document.getElementById('form-lineitem').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const lineitemData = {
+            label: document.getElementById('lineitem-label').value,
+            tag: document.getElementById('lineitem-tag').value,
+            maxScore: document.getElementById('lineitem-maxscore').value,
+            resourceId: document.getElementById('lineitem-resource-id').value,
+        };
+
+        fetch(`/api/lineitem`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(lineitemData)
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Failed to create line item');
+            return response.json();
+        })
+        .then(data => {
+            const confirmationMessage = document.getElementById('confirmation-message');
+            confirmationMessage.classList.remove('hidden');
+            confirmationMessage.classList.remove('opacity-0'); 
+            confirmationMessage.classList.add('opacity-100'); 
+
+            setTimeout(() => {
+                confirmationMessage.classList.remove('opacity-100'); 
+                confirmationMessage.classList.add('opacity-0'); 
+            }, 5000);
+
+            return fetch(`/api/lineitem`); 
+        })
+        .then(response => response.json())
+        .then(lineitems => {
+            const lineitemsDropdown = document.getElementById('lineitems');
+            lineitemsDropdown.innerHTML = '<option value="">-- Select a Line Item --</option>';  // Reset dropdown
+            
+            lineitems.forEach(lineitem => {
+                const option = document.createElement('option');
+                option.value = lineitem.id;
+                option.textContent = lineitem.label;
+                lineitemsDropdown.appendChild(option);
+            });
+
+            document.getElementById('form-lineitem').reset();
+            document.getElementById('lineitem-modal').checked = false;
+        })
+        .catch(error => {
+            console.error(error);
+            alert('Error creating line item');
+        });
+    });
 </script>
-
-
 {% endblock %}

@@ -1,9 +1,10 @@
-from flask import session, render_template
+from flask import session, render_template, request
 from werkzeug.exceptions import Forbidden
 from pylti1p3.contrib.flask import FlaskMessageLaunch, FlaskRequest
 from pylti1p3.tool_config import ToolConfJsonFile
+from pylti1p3.lineitem import LineItem
 from utils import get_lti_config_path, get_launch_data_storage
-import pprint
+from urllib.parse import unquote 
 
 def register(app):
     
@@ -22,37 +23,96 @@ def register(app):
 
         ags_service = message_launch.get_ags()
 
-        # Fetch members and line items
-        members = [] # get_nrps_members()
         lineitems = ags_service.get_lineitems()
 
-        # Create a dictionary to store grades by user and lineitem id for fast lookup
-        grade_lookup = {}
-        for item in lineitems:
-            lineitem = ags_service.find_lineitem_by_id(item['id'])
-            grades = ags_service.get_grades(lineitem)
-            if grades:
-                for grade in grades:
-                    grade_lookup[(grade['userId'], item['id'])] = grade['resultScore']
-
-        # Create gradebook data
-        gradebook = []
-        for member in members:
-            row = [member['user_id'], member['name']]
-            for item in lineitems:
-                # Use the grade_lookup dictionary for fast access to grades
-                grade = grade_lookup.get((member['user_id'], item['id']), '')
-                row.append(grade)
-            gradebook.append(row)
-
-        # Pretty print the gradebook for debugging
-        pprint.pprint(gradebook)
-
-        # Render the template with gradebook data
         tpl_kwargs = {
             'page_title': "Assignments and Grades",
             'lineitems': lineitems,
-            'gradebook': gradebook
         }
 
         return render_template("ags.html", **tpl_kwargs)
+    
+
+    @app.route('/api/lineitem/<path:lineitem_id>', methods=['GET'])
+    def get_lineitem(lineitem_id):
+        lineitem_id = unquote(lineitem_id)  
+        launch_id = session.get('launch_id', '')
+
+        tool_conf = ToolConfJsonFile(get_lti_config_path(app))
+        flask_request = FlaskRequest()
+        launch_data_storage = get_launch_data_storage()
+        message_launch = FlaskMessageLaunch.from_cache(launch_id, flask_request, tool_conf,
+                                                        launch_data_storage=launch_data_storage)
+
+        if not message_launch.has_ags():
+            return {'error': 'AGS not enabled!'}, 403
+
+        ags_service = message_launch.get_ags()
+        lineitems = ags_service.get_lineitems()
+
+        lineitem_data = next((item for item in lineitems if item['id'] == lineitem_id), None)
+        
+        if lineitem_data:
+            return {
+                'id': lineitem_data.get('id'),
+                'label': lineitem_data.get('label'),
+                'maxScore': lineitem_data.get('scoreMaximum'),
+                'resourceId': lineitem_data.get('resourceId'),
+                'resourceLinkId': lineitem_data.get('resourceLinkId'),
+                'tag': lineitem_data.get('tag')
+            }
+        else:
+            return {'error': 'Line item not found'}, 404
+
+    @app.route('/api/lineitem', methods=['GET'])
+    def list_lineitems():
+        launch_id = session.get('launch_id', '')
+
+        tool_conf = ToolConfJsonFile(get_lti_config_path(app))
+        flask_request = FlaskRequest()
+        launch_data_storage = get_launch_data_storage()
+        message_launch = FlaskMessageLaunch.from_cache(launch_id, flask_request, tool_conf,
+                                                        launch_data_storage=launch_data_storage)
+
+        if not message_launch.has_ags():
+            return {'error': 'AGS not enabled!'}, 403
+
+        ags_service = message_launch.get_ags()
+        lineitems = ags_service.get_lineitems()
+
+        return lineitems 
+
+
+
+    @app.route('/api/lineitem', methods=['POST'])
+    def create_lineitem():
+        launch_id = session.get('launch_id', '')
+
+        tool_conf = ToolConfJsonFile(get_lti_config_path(app))
+        flask_request = FlaskRequest()
+        launch_data_storage = get_launch_data_storage()
+        message_launch = FlaskMessageLaunch.from_cache(launch_id, flask_request, tool_conf,
+                                                        launch_data_storage=launch_data_storage)
+
+        if not message_launch.has_ags():
+            return {'error': 'AGS not enabled!'}, 403
+
+        data = request.json 
+
+        if not data:
+            return {'error': 'No data provided'}, 400
+
+        ags_service = message_launch.get_ags()
+
+        lineitem = LineItem({
+            "label": data.get("label"),
+            "scoreMaximum": data.get("maxScore"),
+            "resourceId": data.get("resourceId"),
+            "tag": data.get("tag"),
+        })
+
+        try:
+            ags_service.find_or_create_lineitem(lineitem) 
+            return {'success': 'Line item created successfully'}, 201
+        except Exception as e:
+            return {'error': str(e)}, 500  
