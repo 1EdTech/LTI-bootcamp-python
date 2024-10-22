@@ -1,22 +1,14 @@
-from flask import session, render_template, request
+from flask import render_template, request
 from werkzeug.exceptions import Forbidden
-from pylti1p3.contrib.flask import FlaskMessageLaunch, FlaskRequest
-from pylti1p3.tool_config import ToolConfJsonFile
 from pylti1p3.lineitem import LineItem
-from utils import get_lti_config_path, get_launch_data_storage
 from urllib.parse import unquote 
+from utils import get_message_launch
 
 def register(app):
     
     @app.route("/ags")
     def ags():
-        launch_id = session.get('launch_id', '')
-
-        tool_conf = ToolConfJsonFile(get_lti_config_path(app))
-        flask_request = FlaskRequest()
-        launch_data_storage = get_launch_data_storage()
-        message_launch = FlaskMessageLaunch.from_cache(launch_id, flask_request, tool_conf,
-                                                    launch_data_storage=launch_data_storage)
+        launch_id, message_launch = get_message_launch(app)
 
         if not message_launch.has_ags():
             raise Forbidden('AGS not enabled!')
@@ -36,13 +28,7 @@ def register(app):
     @app.route('/api/lineitem/<path:lineitem_id>', methods=['GET'])
     def get_lineitem(lineitem_id):
         lineitem_id = unquote(lineitem_id)  
-        launch_id = session.get('launch_id', '')
-
-        tool_conf = ToolConfJsonFile(get_lti_config_path(app))
-        flask_request = FlaskRequest()
-        launch_data_storage = get_launch_data_storage()
-        message_launch = FlaskMessageLaunch.from_cache(launch_id, flask_request, tool_conf,
-                                                        launch_data_storage=launch_data_storage)
+        launch_id, message_launch = get_message_launch(app)
 
         if not message_launch.has_ags():
             return {'error': 'AGS not enabled!'}, 403
@@ -66,13 +52,8 @@ def register(app):
 
     @app.route('/api/lineitem', methods=['GET'])
     def list_lineitems():
-        launch_id = session.get('launch_id', '')
-
-        tool_conf = ToolConfJsonFile(get_lti_config_path(app))
-        flask_request = FlaskRequest()
-        launch_data_storage = get_launch_data_storage()
-        message_launch = FlaskMessageLaunch.from_cache(launch_id, flask_request, tool_conf,
-                                                        launch_data_storage=launch_data_storage)
+        
+        launch_id, message_launch = get_message_launch(app)
 
         if not message_launch.has_ags():
             return {'error': 'AGS not enabled!'}, 403
@@ -86,13 +67,7 @@ def register(app):
 
     @app.route('/api/lineitem', methods=['POST'])
     def create_lineitem():
-        launch_id = session.get('launch_id', '')
-
-        tool_conf = ToolConfJsonFile(get_lti_config_path(app))
-        flask_request = FlaskRequest()
-        launch_data_storage = get_launch_data_storage()
-        message_launch = FlaskMessageLaunch.from_cache(launch_id, flask_request, tool_conf,
-                                                        launch_data_storage=launch_data_storage)
+        launch_id, message_launch = get_message_launch(app)
 
         if not message_launch.has_ags():
             return {'error': 'AGS not enabled!'}, 403

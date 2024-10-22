@@ -1,19 +1,16 @@
-import os
-
 from flask import session, render_template, request, abort, url_for
 from werkzeug.exceptions import Forbidden
-from pylti1p3.contrib.flask import FlaskOIDCLogin, FlaskMessageLaunch, FlaskRequest, FlaskCacheDataStorage
-from pylti1p3.tool_config import ToolConfJsonFile
 from pylti1p3.deep_link_resource import DeepLinkResource
-import json
+from utils import get_message_launch
 
-from utils import get_lti_config_path, get_launch_data_storage, find_course_by_id, load_courses
+
+from utils import find_course_by_id, load_courses
 
 def register(app):
 
     @app.route('/deeplink/', methods=['GET'])
     def deeplink():
-        # Get launch data from session
+        
         launch_data = session.get('launch_data', {})
         launch_id = session.get('launch_id', '')
 
@@ -44,14 +41,7 @@ def register(app):
 
     @app.route('/dl/<resource_id>/', methods=['GET', 'POST'])
     def deeplink_response(resource_id):
-
-
-        launch_id = session.get('launch_id', '')
-        tool_conf = ToolConfJsonFile(get_lti_config_path(app))
-        flask_request = FlaskRequest()
-        launch_data_storage = get_launch_data_storage()
-        message_launch = FlaskMessageLaunch.from_cache(launch_id, flask_request, tool_conf,
-                                                    launch_data_storage=launch_data_storage)
+        launch_id, message_launch = get_message_launch(app)
 
         if not message_launch.is_deep_link_launch():
             raise Forbidden('Must be a deep link!')

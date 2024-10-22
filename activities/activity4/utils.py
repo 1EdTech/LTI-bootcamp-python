@@ -1,8 +1,9 @@
-from flask import jsonify
+from flask import jsonify, session
 import os
 from flask_caching import Cache
-from pylti1p3.contrib.flask import FlaskCacheDataStorage
-
+from pylti1p3.contrib.flask import FlaskCacheDataStorage, FlaskRequest
+from pylti1p3.tool_config import ToolConfJsonFile
+from pylti1p3.contrib.flask import FlaskMessageLaunch, FlaskRequest
 
 import json
 
@@ -27,6 +28,19 @@ def load_courses(app):
 def find_course_by_id(app, course_id):
     courses = load_courses(app)
     return next((course for course in courses if course['id'] == int(course_id)), None)
+
+def get_message_launch(app):
+    # Used by routes to get the message launch
+    launch_id = session.get('launch_id', '')
+
+    tool_conf = ToolConfJsonFile(get_lti_config_path(app))
+    flask_request = FlaskRequest()
+    launch_data_storage = get_launch_data_storage()
+    
+    message_launch = FlaskMessageLaunch.from_cache(launch_id, flask_request, tool_conf,
+                                                    launch_data_storage=launch_data_storage)
+    
+    return launch_id, message_launch
 
 class ReverseProxied:
     def __init__(self, app):

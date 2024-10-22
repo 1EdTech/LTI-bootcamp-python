@@ -1,5 +1,5 @@
 from flask import session, render_template, redirect, url_for, jsonify
-from pylti1p3.contrib.flask import FlaskOIDCLogin, FlaskMessageLaunch, FlaskRequest, FlaskCacheDataStorage
+from pylti1p3.contrib.flask import FlaskOIDCLogin, FlaskMessageLaunch, FlaskRequest
 from pylti1p3.tool_config import ToolConfJsonFile
 
 from utils import get_lti_config_path, get_launch_data_storage, find_course_by_id
