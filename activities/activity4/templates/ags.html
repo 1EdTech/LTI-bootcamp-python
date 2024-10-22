@@ -182,17 +182,13 @@
     }
 
     document.getElementById('create-lineitem-btn').addEventListener('click', function() {
-        // Show the modal dialog for creating a new line item
-        document.getElementById('lineitem-modal').checked = true; // Open modal
-        // Hide line item details
+        document.getElementById('lineitem-modal').checked = true; 
         document.getElementById('lineitem-details').classList.add('hidden');
-        // Hide confirmation message
         document.getElementById('confirmation-message').classList.add('hidden');
     });
 
     document.getElementById('add-grade-btn').addEventListener('click', function() {
-        // Show the modal dialog for adding a grade
-        document.getElementById('grade-modal').checked = true; // Open modal
+        document.getElementById('grade-modal').checked = true;
     });
 
     document.getElementById('form-lineitem').addEventListener('submit', function(e) {
@@ -217,26 +213,23 @@
             return response.json();
         })
         .then(data => {
-            // Show confirmation message
             const confirmationMessage = document.getElementById('confirmation-message');
             confirmationMessage.classList.remove('hidden');
-            confirmationMessage.classList.remove('opacity-0'); // Show message
-            confirmationMessage.classList.add('opacity-100'); // Fade in
+            confirmationMessage.classList.remove('opacity-0');
+            confirmationMessage.classList.add('opacity-100'); 
 
             // Auto-fade out after 5 seconds
             setTimeout(() => {
-                confirmationMessage.classList.remove('opacity-100'); // Fade out
-                confirmationMessage.classList.add('opacity-0'); // Hide message
+                confirmationMessage.classList.remove('opacity-100'); 
+                confirmationMessage.classList.add('opacity-0'); 
             }, 5000);
 
-            // Refresh the dropdown selection
-            return fetch(`/api/lineitem`);  // Fetch all line items
+            return fetch(`/api/lineitem`);  
         })
         .then(response => response.json())
         .then(lineitems => {
-            // Clear the dropdown
             const lineitemsDropdown = document.getElementById('lineitems');
-            lineitemsDropdown.innerHTML = '<option value="">-- Select a Line Item --</option>';  // Reset dropdown
+            lineitemsDropdown.innerHTML = '<option value="">-- Select a Line Item --</option>';  
             
             lineitems.forEach(lineitem => {
                 const option = document.createElement('option');
@@ -245,9 +238,7 @@
                 lineitemsDropdown.appendChild(option);
             });
 
-            // Optionally reset the form
             document.getElementById('form-lineitem').reset();
-            // Close modal after success
             document.getElementById('lineitem-modal').checked = false;
         })
         .catch(error => {
@@ -259,12 +250,12 @@
     document.getElementById('form-grade').addEventListener('submit', function(e) {
         e.preventDefault();
 
-        const lineitemId = encodeURIComponent(document.getElementById('lineitems').value); // Get the selected line item ID
+        const lineitemId = encodeURIComponent(document.getElementById('lineitems').value); 
         const gradeData = {
             scoreGiven: parseFloat(document.getElementById('grade-value').value),
-            scoreMaximum: parseFloat(document.getElementById('grade-maxscore').value), // Add max score
-            userId: document.getElementById('grade-user-id').value, // Get user ID
-            comment: document.getElementById('grade-comment').value, // Get comment
+            scoreMaximum: parseFloat(document.getElementById('grade-maxscore').value), 
+            userId: document.getElementById('grade-user-id').value, 
+            comment: document.getElementById('grade-comment').value,
         };
 
         fetch(`/api/lineitem/${lineitemId}/grade`, {
@@ -279,9 +270,8 @@
             return response.json();
         })
         .then(data => {
-            // Optionally refresh grades here
-            loadGrades(lineitemId); // Reload the grades for the selected line item
-            document.getElementById('grade-modal').checked = false; // Close modal after success
+            loadGrades(lineitemId); 
+            document.getElementById('grade-modal').checked = false; 
         })
         .catch(error => {
             console.error(error);

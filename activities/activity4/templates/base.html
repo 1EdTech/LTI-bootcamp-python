@@ -31,7 +31,6 @@
             sidebar.classList.toggle('-translate-x-full');
         });
 
-        // Helper function
         let domReady = (cb) => {
         document.readyState === 'interactive' || document.readyState === 'complete'
             ? cb()
@@ -39,7 +38,6 @@
         };
 
         domReady(() => {
-        // Display body when DOM is loaded
         document.body.style.visibility = 'visible';
         });
     </script>

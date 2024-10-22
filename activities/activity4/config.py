@@ -1,5 +1,3 @@
-# config.py
-import os
 import datetime
 from tempfile import mkdtemp
 

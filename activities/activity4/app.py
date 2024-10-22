@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask
 
 from flask_session import Session
 from utils import ReverseProxied, initialize_cache
@@ -7,9 +7,6 @@ from modules.home import register as register_home
 from modules.nrps import register as register_nrps
 from modules.dl import register as register_dl
 from modules.ags import register as register_ags
-
-# from modules.deeplink.routes import deeplink_response
-
 
 app = Flask(__name__)
 app.wsgi_app = ReverseProxied(app.wsgi_app)
@@ -24,17 +21,6 @@ register_lti(app)
 register_nrps(app)
 register_dl(app)
 register_ags(app)
-
-# @app.route("/home")
-# def home():
-#     return home_route()
-
-
-
-
-# @app.route('/dl/<resource_id>/', methods=['GET', 'POST'])
-# def deeplink(resource_id):
-#     return deeplink_response(resource_id)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=3000, debug=True)
