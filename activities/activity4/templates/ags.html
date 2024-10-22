@@ -31,6 +31,29 @@
         <p><strong>Resource ID:</strong> <span id="lineitem-resource-id-readonly"></span></p>
         <p><strong>Resource Link ID:</strong> <span id="lineitem-resource-link-id-readonly"></span></p>
         <p><strong>Tag:</strong> <span id="lineitem-tag-readonly"></span></p>
+        <button id="add-grade-btn" class="btn btn-secondary mt-4">Add Grade</button>
+    </div>
+</div>
+
+<!-- Grades Table -->
+<div id="grades-section" class="mt-5 hidden">
+    <h2 class="text-xl font-bold">Grades for Selected Line Item</h2>
+    <div class="bg-base-100 p-5 rounded-lg shadow-md">
+        <div class="overflow-x-auto">
+            <table class="table-auto w-full mt-2">
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2">User ID</th>
+                        <th class="px-4 py-2">Result</th>
+                        <th class="px-4 py-2">Comment</th>
+                    </tr>
+                </thead>
+                <tbody id="grades-body">
+                    <!-- Grades will be populated here -->
+                </tbody>
+            </table>
+        </div>
+        <p class="text-xs text-gray-600 text-center pt-4">Remember the NPRS Service can be users lookup user details</p>
     </div>
 </div>
 
@@ -64,6 +87,36 @@
     </label>
 </label>
 
+<!-- Modal for Adding Grade -->
+<input type="checkbox" id="grade-modal" class="modal-toggle" />
+<label for="grade-modal" class="modal cursor-pointer">
+    <label class="modal-box relative" for="">
+        <h2 class="text-xl font-bold">Add Grade</h2>
+        <form id="form-grade" class="bg-base-100 p-5 rounded-lg shadow-md">
+            <div class="mb-4">
+                <label for="grade-user-id" class="block text-sm font-medium">User ID:</label>
+                <input type="text" id="grade-user-id" name="userId" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            </div>
+            <div class="mb-4">
+                <label for="grade-value" class="block text-sm font-medium">Score Given:</label>
+                <input type="number" id="grade-value" name="scoreGiven" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            </div>
+            <div class="mb-4">
+                <label for="grade-maxscore" class="block text-sm font-medium">Max Score:</label>
+                <input type="number" id="grade-maxscore" name="scoreMaximum" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            </div>
+            <div class="mb-4">
+                <label for="grade-comment" class="block text-sm font-medium">Comment:</label>
+                <input type="text" id="grade-comment" name="comment" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+            </div>
+            <div class="flex justify-end">
+                <button type="submit" class="btn btn-primary">Submit Grade</button>
+                <label for="grade-modal" class="btn btn-secondary ml-2 cursor-pointer">Cancel</label>
+            </div>
+        </form>
+    </label>
+</label>
+
 <!-- Confirmation Message -->
 <div id="confirmation-message" class="mt-4 hidden text-green-600">
     Line item created successfully!
@@ -82,12 +135,15 @@
                     return response.json();
                 })
                 .then(data => {
+                    // Populate read-only fields with line item details
                     document.getElementById('lineitem-label-readonly').innerText = data.label;
                     document.getElementById('lineitem-maxscore-readonly').innerText = data.maxScore;
                     document.getElementById('lineitem-resource-id-readonly').innerText = data.resourceId;
                     document.getElementById('lineitem-resource-link-id-readonly').innerText = data.resourceLinkId;
                     document.getElementById('lineitem-tag-readonly').innerText = data.tag; // Display the tag
                     document.getElementById('lineitem-details').classList.remove('hidden');
+                    // Load grades for the selected line item
+                    loadGrades(lineitemId);
                 })
                 .catch(error => {
                     console.error(error);
@@ -95,14 +151,48 @@
                 });
         } else {
             document.getElementById('lineitem-details').classList.add('hidden');
+            document.getElementById('grades-section').classList.add('hidden');
         }
     });
 
+    function loadGrades(lineitemId) {
+        fetch(`/api/lineitem/${encodeURIComponent(lineitemId)}/grades`)
+            .then(response => {
+                if (!response.ok) throw new Error('Error fetching grades');
+                return response.json();
+            })
+            .then(grades => {
+                const gradesBody = document.getElementById('grades-body');
+                gradesBody.innerHTML = ''; // Clear previous grades
+                grades.forEach(grade => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="border px-4 py-2">${grade.userId}</td>
+                        <td class="border px-4 py-2">${grade.resultScore} / ${grade.resultMaximum}</td>
+                        <td class="border px-4 py-2">${grade.comment || ''}</td>
+                    `;
+                    gradesBody.appendChild(row);
+                });
+                document.getElementById('grades-section').classList.remove('hidden');
+            })
+            .catch(error => {
+                console.error(error);
+                alert('Error loading grades');
+            });
+    }
+
     document.getElementById('create-lineitem-btn').addEventListener('click', function() {
         // Show the modal dialog for creating a new line item
-        document.getElementById('lineitem-modal').checked = true; 
+        document.getElementById('lineitem-modal').checked = true; // Open modal
+        // Hide line item details
         document.getElementById('lineitem-details').classList.add('hidden');
+        // Hide confirmation message
         document.getElementById('confirmation-message').classList.add('hidden');
+    });
+
+    document.getElementById('add-grade-btn').addEventListener('click', function() {
+        // Show the modal dialog for adding a grade
+        document.getElementById('grade-modal').checked = true; // Open modal
     });
 
     document.getElementById('form-lineitem').addEventListener('submit', function(e) {
@@ -127,20 +217,24 @@
             return response.json();
         })
         .then(data => {
+            // Show confirmation message
             const confirmationMessage = document.getElementById('confirmation-message');
             confirmationMessage.classList.remove('hidden');
-            confirmationMessage.classList.remove('opacity-0'); 
-            confirmationMessage.classList.add('opacity-100'); 
+            confirmationMessage.classList.remove('opacity-0'); // Show message
+            confirmationMessage.classList.add('opacity-100'); // Fade in
 
+            // Auto-fade out after 5 seconds
             setTimeout(() => {
-                confirmationMessage.classList.remove('opacity-100'); 
-                confirmationMessage.classList.add('opacity-0'); 
+                confirmationMessage.classList.remove('opacity-100'); // Fade out
+                confirmationMessage.classList.add('opacity-0'); // Hide message
             }, 5000);
 
-            return fetch(`/api/lineitem`); 
+            // Refresh the dropdown selection
+            return fetch(`/api/lineitem`);  // Fetch all line items
         })
         .then(response => response.json())
         .then(lineitems => {
+            // Clear the dropdown
             const lineitemsDropdown = document.getElementById('lineitems');
             lineitemsDropdown.innerHTML = '<option value="">-- Select a Line Item --</option>';  // Reset dropdown
             
@@ -151,12 +245,47 @@
                 lineitemsDropdown.appendChild(option);
             });
 
+            // Optionally reset the form
             document.getElementById('form-lineitem').reset();
+            // Close modal after success
             document.getElementById('lineitem-modal').checked = false;
         })
         .catch(error => {
             console.error(error);
             alert('Error creating line item');
+        });
+    });
+
+    document.getElementById('form-grade').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const lineitemId = encodeURIComponent(document.getElementById('lineitems').value); // Get the selected line item ID
+        const gradeData = {
+            scoreGiven: parseFloat(document.getElementById('grade-value').value),
+            scoreMaximum: parseFloat(document.getElementById('grade-maxscore').value), // Add max score
+            userId: document.getElementById('grade-user-id').value, // Get user ID
+            comment: document.getElementById('grade-comment').value, // Get comment
+        };
+
+        fetch(`/api/lineitem/${lineitemId}/grade`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(gradeData)
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Failed to add grade');
+            return response.json();
+        })
+        .then(data => {
+            // Optionally refresh grades here
+            loadGrades(lineitemId); // Reload the grades for the selected line item
+            document.getElementById('grade-modal').checked = false; // Close modal after success
+        })
+        .catch(error => {
+            console.error(error);
+            alert('Error adding grade');
         });
     });
 </script>

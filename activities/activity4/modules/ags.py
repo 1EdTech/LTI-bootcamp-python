@@ -1,8 +1,10 @@
-from flask import render_template, request
+from flask import render_template, request, jsonify
 from werkzeug.exceptions import Forbidden
 from pylti1p3.lineitem import LineItem
+from pylti1p3.grade import Grade
 from urllib.parse import unquote 
 from utils import get_message_launch
+from datetime import datetime
 
 def register(app):
     
@@ -91,3 +93,58 @@ def register(app):
             return {'success': 'Line item created successfully'}, 201
         except Exception as e:
             return {'error': str(e)}, 500  
+    
+
+    @app.route('/api/lineitem/<path:lineitem_id>/grades', methods=['GET'])
+    def get_grades_for_lineitem(lineitem_id):
+        launch_id, message_launch = get_message_launch(app)
+        
+        if not message_launch.has_ags():
+            return {'error': 'AGS not enabled!'}, 403
+
+        ags_service = message_launch.get_ags()
+
+        # Fetch grades associated with the specified line item
+        try:
+            lineitem = ags_service.find_lineitem_by_id(unquote(lineitem_id) )
+            grades = ags_service.get_grades(lineitem)
+
+            return jsonify(grades), 200  # Return the grades in JSON format
+            
+        except Exception as e:
+            return {'error': str(e)}, 500 
+
+    @app.route('/api/lineitem/<path:lineitem_id>/grade', methods=['POST'])
+    def add_grade(lineitem_id):
+        
+        launch_id, message_launch = get_message_launch(app)
+        if not message_launch.has_ags():
+            return {'error': 'AGS not enabled!'}, 403
+        
+        lineitem_id = unquote(lineitem_id) 
+
+        # Get the incoming data
+        data = request.json
+
+        # Validate incoming data
+        if not data or 'scoreGiven' not in data or 'userId' not in data:
+            return {'error': 'Invalid data provided'}, 400
+
+        # Create a Grade object
+        grade = Grade()
+        grade.set_score_given(data['scoreGiven'])
+        grade.set_score_maximum(data.get('scoreMaximum', 100))  # Default max score if not provided
+        grade.set_user_id(data['userId'])
+        grade.set_comment(data.get('comment', ''))  # Optional comment
+        grade.set_activity_progress("Completed")  # Hardcoding as per requirement
+        grade.set_grading_progress("FullyGraded")  # Hardcoding as per requirement
+        grade.set_timestamp(datetime.utcnow().isoformat())  # Set current timestamp in ISO format
+
+        ags_service = message_launch.get_ags()
+        try:
+            lineitem = ags_service.find_lineitem_by_id(lineitem_id) 
+            ags_service.put_grade(grade, lineitem)  # Call to AGS service to add the grade
+            return {'success': 'Grade added successfully'}, 201
+        except Exception as e:
+            return {'error': str(e)}, 500  # Handle any errors appropriately
+
