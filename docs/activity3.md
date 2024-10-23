@@ -45,6 +45,11 @@ Please ensure you have completed:
     
     (this ensures the tool launches within Moodle without external redirection).
 
+8. For **Content Selection URL**,  enter
+   `https://tool.ltitraining.net/deeplink/`.
+
+   Also enable `Supports Deeplinking`
+
 #### 3. **Configure LTI Tool Capabilities**
 
 ![Services and Privacy](images/platformReg2.png)
