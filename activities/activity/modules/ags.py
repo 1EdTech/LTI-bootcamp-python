@@ -21,11 +21,13 @@ def register(app):
         lineitems = ags_service.get_lineitems()
 
         activity_id = int(launch_data.get('https://purl.imsglobal.org/spec/lti/claim/custom', {}).get('activity_id', 1))
+        brand = launch_data.get('https://purl.imsglobal.org/spec/lti/claim/custom', {}).get('brand', 'corporate')
 
         tpl_kwargs = {
             'page_title': "Assignments and Grades",
             'lineitems': lineitems,
-            'activity_id': activity_id
+            'activity_id': activity_id,
+            'brand': brand
         }
 
         return render_template("ags.html", **tpl_kwargs)

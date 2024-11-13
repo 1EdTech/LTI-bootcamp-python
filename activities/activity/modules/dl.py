@@ -13,6 +13,7 @@ def register(app):
         
         launch_data = session.get('launch_data', {})
         launch_id = session.get('launch_id', '')
+        brand = launch_data.get('https://purl.imsglobal.org/spec/lti/claim/custom', {}).get('brand', 'corporate')
 
         courses = load_courses(app)
         
@@ -34,7 +35,8 @@ def register(app):
                 'sourced_id': launch_data.get('https://purl.imsglobal.org/spec/lti/claim/lis', {}).get('course_section_sourcedid', '')
             },
             'user_roles': launch_data.get('https://purl.imsglobal.org/spec/lti/claim/roles', []),
-            'resource_link': launch_data.get('https://purl.imsglobal.org/spec/lti/claim/resource_link', {})
+            'resource_link': launch_data.get('https://purl.imsglobal.org/spec/lti/claim/resource_link', {}),
+            'brand': brand
         }
         return render_template("deeplink.html", **tpl_kwargs)
     

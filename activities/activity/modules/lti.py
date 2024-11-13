@@ -36,6 +36,7 @@ def register(app):
         # Some examples for handling custom parameters
         model_id = launch_data.get('https://purl.imsglobal.org/spec/lti/claim/custom', {}).get('model_id')
         activity_id = int(launch_data.get('https://purl.imsglobal.org/spec/lti/claim/custom', {}).get('activity_id', 1))
+        brand = launch_data.get('https://purl.imsglobal.org/spec/lti/claim/custom', {}).get('brand', 'corporate')
 
         tpl_kwargs = {
             'page_title': "Home",
@@ -48,6 +49,7 @@ def register(app):
             'resource_details': resource_details,
             'model_id': model_id,
             'activity_id': activity_id,
+            'brand': brand,
         }
         return render_template("home.html", **tpl_kwargs)
 
@@ -57,12 +59,14 @@ def register(app):
         launch_data = session.get('launch_data', {})
         launch_id = session.get('launch_id', '')
         activity_id = int(launch_data.get('https://purl.imsglobal.org/spec/lti/claim/custom', {}).get('activity_id', 1))
+        brand = launch_data.get('https://purl.imsglobal.org/spec/lti/claim/custom', {}).get('brand', 'corporate')
         
         tpl_kwargs = {
             'page_title': "ID Token",
             'launch_id': launch_id,
             'launch_data': launch_data,
             'activity_id': activity_id,
+            'brand': brand
         }
 
         return render_template("id_token.html", **tpl_kwargs)
