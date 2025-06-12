@@ -35,11 +35,11 @@ If the containers are not running, use `docker-compose up` to start them.
 From a terminal console, test you should be able to ping the platform and tool environments;
 
 ```
-ping tool.ltitraining.net
+ping tool.1edtech.me
 ```
 
 ```
-ping platform.ltitraining.net
+ping platform.1edtech.me
 ```
 
 You should see successful replies coming from both environments
@@ -51,12 +51,12 @@ You should see successful replies coming from both environments
 2. Navigate to the following URL:
 
 ```
-https://tool.ltitraining.net
+https://tool.1edtech.me
 ```
 
 ![Congratulations](images/congratulationsMsg.png)
 
-You should see a success message from the Flask Application page. If the page doesn’t load, double-check that the containers are running, and ensure that your `/etc/hosts` file is correctly configured to resolve `tool.ltitraining.net` to `127.0.0.1`.
+You should see a success message from the Flask Application page. If the page doesn’t load, double-check that the containers are running, and ensure that your `/etc/hosts` file is correctly configured to resolve `tool.1edtech.me` to `127.0.0.1`.
 
 
 ---
@@ -67,10 +67,10 @@ You should see a success message from the Flask Application page. If the page do
 2. Navigate to the following URL:
 
 ```
-https://platform.ltitraining.net
+https://platform.1edtech.me
 ```
 
-You should see the Moodle login page. If the page doesn’t load, double-check that the containers are running, and ensure that your `/etc/hosts` file is correctly configured to resolve `platform.ltitraining.net` to `127.0.0.1`.
+You should see the Moodle login page. If the page doesn’t load, double-check that the containers are running, and ensure that your `/etc/hosts` file is correctly configured to resolve `platform.1edtech.me` to `127.0.0.1`.
 
 
 ---
@@ -79,7 +79,7 @@ You should see the Moodle login page. If the page doesn’t load, double-check t
 ## **Summary of Quick Tests**:
 - **Test 1**: Check Docker container status.
 - **Test 3**: Ping the platform and tool environments
-- **Test 3**: Access Test Application via `https://tool.ltitraining.net`.
-- **Test 4**: Access Moodle via `https://platform.ltitraining.net`.
+- **Test 3**: Access Test Application via `https://tool.1edtech.me`.
+- **Test 4**: Access Moodle via `https://platform.1edtech.me`.
 
 Running through these tests will ensure that everything is correctly set up and functioning for the workshop.

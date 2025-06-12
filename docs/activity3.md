@@ -13,7 +13,7 @@ Please ensure you have completed:
 
 #### 1. **Access the External Tool Settings**
 
-1. Navigate to **Site Administration** ➡️ **Plugins** ➡️ **Activity modules** ➡️ **External tool** or use this direct link: [External Tool Configuration](https://platform.ltitraining.net/mod/lti/toolconfigure.php).
+1. Navigate to **Site Administration** ➡️ **Plugins** ➡️ **Activity modules** ➡️ **External tool** or use this direct link: [External Tool Configuration](https://platform.1edtech.me/mod/lti/toolconfigure.php).
 2. Click on **Manage tools** at the top of the page.
 
 #### 2. **Add a New LTI Tool**
@@ -24,17 +24,17 @@ Please ensure you have completed:
 2. Fill out the following details:
 
    - **Tool name**: Choose a name that reflects the purpose of your tool (e.g., "MY TOOL").
-   - **Tool URL**: Enter the URL of your LTI 1.3 tool (e.g., `https://tool.ltitraining.net`).
+   - **Tool URL**: Enter the URL of your LTI 1.3 tool (e.g., `https://tool.1edtech.me`).
    - **LTI version**: Select **LTI 1.3**.
 
 3. In the **Public keyset URL** field, enter the JWKS URL of your tool. Example:  
-   `https://tool.ltitraining.net/jwks/`.
+   `https://tool.1edtech.me/jwks/`.
 
 4. Under **Initiate login URL**, enter the login initiation endpoint of your tool. Example:  
-   `https://tool.ltitraining.net/login/`.
+   `https://tool.1edtech.me/login/`.
 
 5. In the **Redirection URI(s)** field, provide the redirect URL used by your tool to handle successful launches. Example:  
-   `https://tool.ltitraining.net/launch/`.
+   `https://tool.1edtech.me/launch/`.
 
 6. Set **Tool configuration usage** to 
 
@@ -46,7 +46,7 @@ Please ensure you have completed:
     (this ensures the tool launches within Moodle without external redirection).
 
 8. For **Content Selection URL**,  enter
-   `https://tool.ltitraining.net/deeplink/`.
+   `https://tool.1edtech.me/deeplink/`.
 
    Also enable `Supports Deeplinking`
 

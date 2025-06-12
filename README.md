@@ -18,7 +18,7 @@ Before starting the workshop, please ensure you have the following installed:
 - **Docker Desktop** ([Download here](https://www.docker.com/products/docker-desktop))
 - **A code editor** (We recommend [VS Code](https://code.visualstudio.com/))
 
-You will also need **administrator access** to update your machine's `hosts` file to map the domains `platform.ltitraining.net` and `tool.ltitraining.net` to your local development environment.
+You will also need **administrator access** to update your machine's `hosts` file to map the domains `platform.1edtech.me` and `tool.1edtech.me` to your local development environment.
 
 Python is provided within the Docker environment,  so there is no need to install specific versions of Python to get the application running.
 

@@ -56,7 +56,7 @@ VS Code supports extensions for both Python and Node.js development, making it a
 
 ## **3. Administrator Access to Update Hosts File**
 
-You will need administrator access to modify the `hosts` file on your machine. This is necessary to map the workshop domains (`platform.ltitraining.net` and `tool.ltitraining.net`) to your local environment.
+You will need administrator access to modify the `hosts` file on your machine. This is necessary to map the workshop domains (`platform.1edtech.me` and `tool.1edtech.me`) to your local environment.
 
 - **On macOS**: You can modify the `hosts` file by opening the terminal and running:
 
@@ -73,8 +73,8 @@ C:\Windows\System32\drivers\etc\hosts
 Make sure to add the following lines to the `hosts` file:
 
 ```
-127.0.0.1 platform.ltitraining.net
-127.0.0.1 tool.ltitraining.net
+127.0.0.1 platform.1edtech.me
+127.0.0.1 tool.1edtech.me
 ```
 
 On some versions of MacOS the change may not be immediate.  You can flush the dns to force the change to take place;

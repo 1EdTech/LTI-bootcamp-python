@@ -14,7 +14,7 @@ Please ensure you have completed:
 
 #### 1. **Log in to Moodle**
 
-Access Moodle at `https://platform.ltitraining.net`. Use the following default login credentials:
+Access Moodle at `https://platform.1edtech.me`. Use the following default login credentials:
 
 - **Username**: user  
 - **Password**: _B00tcamp
@@ -25,7 +25,7 @@ Feel free to change your password in your user profile if needed.
 
 By default, Moodle blocks HTTP calls to local IP addresses. While this is important in production environments, it can disrupt connectivity in a local Docker setup. Here’s how to adjust this setting:
 
-1. Navigate to **Site Administration** ➡️ **General** ➡️ **Security** ➡️ **HTTP Security** or use this direct link: [HTTP Security](https://platform.ltitraining.net/admin/settings.php?section=httpsecurity).
+1. Navigate to **Site Administration** ➡️ **General** ➡️ **Security** ➡️ **HTTP Security** or use this direct link: [HTTP Security](https://platform.1edtech.me/admin/settings.php?section=httpsecurity).
 2. Locate the **cURL blocked hosts list** field and clear any listed addresses.
 3. Press **Save changes**.
 
@@ -33,7 +33,7 @@ By default, Moodle blocks HTTP calls to local IP addresses. While this is import
 
 To test your tool with multiple users, you’ll need to upload a list of sample users:
 
-1. Navigate to **Site Administration** ➡️ **Users [tab]** ➡️ **Accounts** ➡️ **Upload Users** or use this direct link: [Upload Users](https://platform.ltitraining.net/admin/tool/uploaduser/index.php).
+1. Navigate to **Site Administration** ➡️ **Users [tab]** ➡️ **Accounts** ➡️ **Upload Users** or use this direct link: [Upload Users](https://platform.1edtech.me/admin/tool/uploaduser/index.php).
 2. Upload the sample user list from `./environment/data/accounts.csv`.
 3. Moodle will display a preview of the records. In the **New user password** field, select **Field required in file**.
 4. Confirm the upload by pressing the **Upload Users** button.
@@ -52,7 +52,7 @@ You can now log in to Moodle using any of the test student or instructor account
 
 To proceed with testing, you’ll need to create a course:
 
-1. In the top navigation bar, click on **My Courses** or use this direct link: [My Courses](https://platform.ltitraining.net/my/courses.php).
+1. In the top navigation bar, click on **My Courses** or use this direct link: [My Courses](https://platform.1edtech.me/my/courses.php).
 2. Click **Create Course**.
 3. Fill out the following details:
    - **Course full name**: Bootcamp

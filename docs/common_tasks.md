@@ -46,7 +46,7 @@ This will stop the containers and delete the associated volumes, meaning any per
 
 ### **Updating the Hosts File**
 
-To ensure the domains `platform.ltitraining.net` and `tool.ltitraining.net` resolve to your local environment, make sure your `/etc/hosts` file is updated.
+To ensure the domains `platform.1edtech.me` and `tool.1edtech.me` resolve to your local environment, make sure your `/etc/hosts` file is updated.
 
 #### **On macOS/Linux**:
 Open the `/etc/hosts` file in a text editor with administrator privileges:
@@ -101,7 +101,7 @@ If you want to completely reset the environment, including removing any persiste
    docker-compose down --volumes
    ```
 
-3. **Update or clean the hosts file** (if necessary) to remove any entries related to `platform.ltitraining.net` and `tool.ltitraining.net`.
+3. **Update or clean the hosts file** (if necessary) to remove any entries related to `platform.1edtech.me` and `tool.1edtech.me`.
 
 ---
 

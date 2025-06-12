@@ -41,7 +41,7 @@ cd environment
 
 In this setup, we will use 2 real domains with real (browser-trusted) SSL certificates.  We will configure the routing on your PC to route these domains locally within your machine.  This allows us to focus on LTI development without the complexities of browser security getting in the way.
 
-To ensure that the domains `platform.ltitraining.net` and `tool.ltitraining.net` resolve to your local environment, you need to update your local `/etc/hosts` file.
+To ensure that the domains `platform.1edtech.me` and `tool.1edtech.me` resolve to your local environment, you need to update your local `/etc/hosts` file.
 
 ##### **On macOS/Linux**:
 1. Open the `/etc/hosts` file in your text editor with administrator privileges:
@@ -53,7 +53,7 @@ To ensure that the domains `platform.ltitraining.net` and `tool.ltitraining.net`
 2. Add the following lines to the file:
 
    ```bash
-   127.0.0.1 platform.ltitraining.net tool.ltitraining.net
+   127.0.0.1 platform.1edtech.me tool.1edtech.me
    ```
 
 3. Save and close the file.
@@ -64,7 +64,7 @@ To ensure that the domains `platform.ltitraining.net` and `tool.ltitraining.net`
 3. Add the following lines at the end of the file:
 
    ```bash
-   127.0.0.1 platform.ltitraining.net tool.ltitraining.net
+   127.0.0.1 platform.1edtech.me tool.1edtech.me
    ```
 
 4. Save and close the file.
@@ -101,7 +101,7 @@ To verify that everything is running correctly, complete the checks the [Checkli
 
   Look for any error messages that indicate issues with the configuration or missing dependencies.
 
-- **Cannot access platform.ltitraining.net**: Ensure that the `/etc/hosts` file is correctly set to resolve `platform.ltitraining.net` and `tool.ltitraining.net` to `127.0.0.1`.
+- **Cannot access platform.1edtech.me**: Ensure that the `/etc/hosts` file is correctly set to resolve `platform.1edtech.me` and `tool.1edtech.me` to `127.0.0.1`.
 
 - **SSL issues**: If you run into SSL certificate issues, ensure that the certificates in the `certs/` folder are correctly mapped in the `nginx.conf` file.
 
@@ -114,6 +114,6 @@ To understand how to start, stop, reset, clean up,  details are outlined in the 
 ---
 
 ### **Activity Summary:**
-You have now cloned the repository, updated your hosts file, started the Docker environment, and accessed Moodle via the `platform.ltitraining.net` domain. You are ready to move on to the next activity, where you will configure the Moodle LTI tool and begin developing.
+You have now cloned the repository, updated your hosts file, started the Docker environment, and accessed Moodle via the `platform.1edtech.me` domain. You are ready to move on to the next activity, where you will configure the Moodle LTI tool and begin developing.
 
 

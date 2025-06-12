@@ -12,8 +12,8 @@ services:
     networks:
       default:
         aliases:
-          - platform.ltitraining.net
-          - tool.ltitraining.net
+          - platform.1edtech.me
+          - tool.1edtech.me
 
   mariadb:
     image: docker.io/bitnami/mariadb:10.6
